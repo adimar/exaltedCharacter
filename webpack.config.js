@@ -18,7 +18,7 @@ module.exports = {
                     importLoaders: 1,
                     camelCase: true,
                     localIdentName: '[name]_[local]_[hash:base64:5]'}},
-               {loader: 'typed-css-modules-loader',options: {camelCase: true} }
+              /* {loader: 'typed-css-modules-loader',options: {camelCase: true} }*/
            ]}
        ]
     },

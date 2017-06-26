@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@types/deep-assign": "^0.1.0",
+    "@types/lodash": "^4.14.66",
     "@types/react": "^15.0.29",
     "@types/react-dom": "^15.5.0",
     "@types/react-redux": "^4.4.43",
-    "@types/redux": "^3.6.0",
     "css-loader": "^0.28.4",
     "postcss-loader": "^2.0.6",
     "source-map-loader": "^0.2.1",
@@ -17,6 +18,8 @@
     "typescript": "^2.3.4"
   },
   "dependencies": {
+    "deep-assign": "^2.0.0",
+    "lodash": "^4.14.66",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",

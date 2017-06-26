@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as redux from "redux";
 import { connect } from "react-redux";
-import {DataStore} from "../datastore/character-store";
-import { AttributeElement, AttributeProps} from "./attribute-element";
+import { AttributeElement} from "./attribute-element";
+import {GurpsDataStore} from "../datastore/gurps-char-gen-datastore";
 
 export interface AttributePaneProps {
 
@@ -16,11 +16,11 @@ interface ConnectedDispatch {
 
 }
 
-const mapStateToProps = (state: DataStore.All, ownProps: AttributePaneProps): ConnectedState => ({
+const mapStateToPropsAttributePane = (state: GurpsDataStore.All, ownProps: AttributePaneProps): ConnectedState => ({
 
 })
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<DataStore.All>): ConnectedDispatch => ({
+const mapDispatchToPropsAttributePane = (dispatch: redux.Dispatch<GurpsDataStore.All>): ConnectedDispatch => ({
 
 })
 
@@ -34,10 +34,10 @@ class _AttributePane extends React.Component<{} , {}> {
 
         return <div>
 
-            <AttributeElement name="ST" value="10" cost="0"/><br/>
-            <AttributeElement name="DX" value="11" cost="1"/><br/>
-            <AttributeElement name="IQ" value="13" cost="2"/><br/>
-            <AttributeElement name="HT" value="14" cost="3"/><br/>
+            <AttributeElement attributeId="st"/><br/>
+            <AttributeElement attributeId="dx"/><br/>
+            <AttributeElement attributeId="iq"/><br/>
+            <AttributeElement attributeId="ht"/><br/>
         </div>
     }
 }
@@ -45,4 +45,4 @@ class _AttributePane extends React.Component<{} , {}> {
 
 
 export const AttributePane: React.ComponentClass<AttributePaneProps> =
-    connect(mapStateToProps, mapDispatchToProps)(_AttributePane)
+    connect(mapStateToPropsAttributePane, mapDispatchToPropsAttributePane)(_AttributePane)

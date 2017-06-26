@@ -30,7 +30,7 @@ export namespace SystemDataStore {
 export const SystemAttributeStoreInitialState : AttributesStore = {
     st : {name:"ST", costPerRaise:10, base:10},
     dx : {name:"DX", costPerRaise:20, base:10},
-    iq : {name:"IQ", costPerRaise:10, base:10},
+    iq : {name:"IQ", costPerRaise:20, base:10},
     ht : {name:"HT", costPerRaise:10, base:10},
     hp : {name:"HP", costPerRaise:2, derived:PrimaryAttributeIdConsts.st},
     will : {name:"WILL", costPerRaise:5, derived:PrimaryAttributeIdConsts.iq},

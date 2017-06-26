@@ -13,8 +13,7 @@ export const AttributeReducer = (state: GurpsDataStore.All = GurpsDataStoreIniti
             let singleAttribute : any =  {};
             singleAttribute[action.attributeId] = {value:action.value};
             let charAssign = {character:{attributes:singleAttribute}};
-            var newState =  deepAssign(state,charAssign);
-            return newState;
+            return deepAssign({},state,charAssign);
         default:
             return state;
     }

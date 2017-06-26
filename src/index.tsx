@@ -12,6 +12,6 @@ let myStore: Redux.Store<GurpsDataStore.All> = Redux.createStore(AttributeReduce
 
 ReactDOM.render(
     <Provider store={myStore}>
-        <AttributeElement attributeId="st"/>
+        <AttributePane />
     </Provider>
     , document.body);

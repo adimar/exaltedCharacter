@@ -6,15 +6,15 @@ import * as React from "react";
 import { CounterReducer} from "./reducers/counter-reducers"
 
 
-import {AttributePane} from "./components/attribute-pane";
+
 import {DataStore} from "./datastore/character-store";
-import {AttributeGroupPane} from "./components/attribute-group";
+import {AttributePane} from "./components/attribute-pane";
 
 
 let myStore: Redux.Store<DataStore.All> = Redux.createStore(CounterReducer)
 
 ReactDOM.render(
     <Provider store={myStore}>
-        <AttributeGroupPane />
+        <AttributePane />
     </Provider>
     , document.body);

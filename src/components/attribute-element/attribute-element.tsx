@@ -1,10 +1,12 @@
 import * as React from "react";
 import * as redux from "redux";
 import {connect} from "react-redux";
-import * as styles from "./attribute-element.css";
-import {GurpsDataStore} from "../datastore/gurps-char-gen-datastore";
-import {setDerivedAttribute, setPrimaryAttribute} from "../actions/attribute-action-factory";
+
+import {GurpsDataStore} from "../../datastore/gurps-char-gen-datastore";
+import {setDerivedAttribute, setPrimaryAttribute} from "../../actions/attribute-action-factory";
 import * as _ from "lodash";
+
+import * as styles from "./attribute-element.css";
 
 export interface AttributeElementProps {
     attributeId: string;

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as redux from "redux";
 import { connect } from "react-redux";
-import { AttributeElement} from "./attribute-element";
+import { AttributeElement} from "./attribute-element/attribute-element";
 import {GurpsDataStore} from "../datastore/gurps-char-gen-datastore";
 
 export interface AttributePaneProps {
@@ -26,7 +26,7 @@ const mapDispatchToPropsAttributePane = (dispatch: redux.Dispatch<GurpsDataStore
 
 
 
-class _AttributePane extends React.Component<{} , {}> {
+class _AttributesPane extends React.Component<{} , {}> {
 
 
 
@@ -48,5 +48,5 @@ class _AttributePane extends React.Component<{} , {}> {
 
 
 
-export const AttributePane: React.ComponentClass<AttributePaneProps> =
-    connect(mapStateToPropsAttributePane, mapDispatchToPropsAttributePane)(_AttributePane)
+export const AttributesPane: React.ComponentClass<AttributePaneProps> =
+    connect(mapStateToPropsAttributePane, mapDispatchToPropsAttributePane)(_AttributesPane)

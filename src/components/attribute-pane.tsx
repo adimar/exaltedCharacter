@@ -38,6 +38,10 @@ class _AttributePane extends React.Component<{} , {}> {
             <AttributeElement attributeId="dx"/><br/>
             <AttributeElement attributeId="iq"/><br/>
             <AttributeElement attributeId="ht"/><br/>
+            <AttributeElement attributeId="hp"/><br/>
+            <AttributeElement attributeId="will"/><br/>
+            <AttributeElement attributeId="per"/><br/>
+            <AttributeElement attributeId="fp"/><br/>
         </div>
     }
 }

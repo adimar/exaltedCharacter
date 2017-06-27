@@ -1,6 +1,5 @@
 .attributeElement {
     position: relative;
-    background-color: aqua;
     padding: 2px;
     margin: 0px;
     width: 210px;
@@ -8,7 +7,7 @@
 
 .attributeElement .attributeName {
     font-weight: bold;
-    font-size: 40px;
+    font-size: 30px;
     padding: 2px;
 }
 
@@ -27,18 +26,18 @@
 .attributeElement .attributeCostBox {
     font-size: 20px;
     border-width: 0px;
-    width: 30px;
+    width: 35px;
     padding: 2px;
-    margin-left: 5px;
-    margin-right: 5px;
     text-align: center;
     position: absolute;
     left:150px;
+    top: 10px;
 }
 
 .squareBrackets {
     position: absolute;
     left:140px;
+    top: 10px;
 
 }
 
@@ -53,6 +52,7 @@
     height: 15px;
 
 }
+
 .squareBrackets:after
 {
     content:" ";
@@ -61,8 +61,15 @@
     border-bottom:3px solid #666;
     padding: 2px;
     position: absolute;
-    left:50px;
+    left:55px;
     height: 15px;
 
 }
 
+.activeAttributeTextbox {
+    background-color: white;
+}
+
+.inactiveAttributTextbox {
+    background-color: yellow;
+}

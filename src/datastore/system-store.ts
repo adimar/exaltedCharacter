@@ -33,7 +33,7 @@ export const SystemAttributeStoreInitialState : AttributesStore = {
     iq : {name:"IQ", costPerRaise:20, base:10},
     ht : {name:"HT", costPerRaise:10, base:10},
     hp : {name:"HP", costPerRaise:2, derived:PrimaryAttributeIdConsts.st},
-    will : {name:"WILL", costPerRaise:5, derived:PrimaryAttributeIdConsts.iq},
+    will : {name:"WIL", costPerRaise:5, derived:PrimaryAttributeIdConsts.iq},
     per : {name:"PER", costPerRaise:5, derived:PrimaryAttributeIdConsts.iq},
     fp : {name:"FP", costPerRaise:3, derived:PrimaryAttributeIdConsts.ht},
 }

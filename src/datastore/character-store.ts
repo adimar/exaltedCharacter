@@ -6,7 +6,8 @@ import cAttributesStore = CharacterDataStore.cAttributesStore;
 export namespace CharacterDataStore {
 
     export type cAttribute = {
-        value: number;
+        value?: number;
+        cost?: number;
     }
 
     export type cAttributesStore = {[attributeId:string]: cAttribute};
@@ -24,10 +25,10 @@ export const CharacterAttributeStoreInitialState : cAttributesStore = {
     dx: {value:0},
     iq: {value:0},
     ht: {value:0},
-    hp: {value:0},
-    will: {value:0},
-    per: {value:0},
-    fp: {value:0},
+    hp: {cost:0},
+    will: {cost:0},
+    per: {cost:0},
+    fp: {cost:0},
 }
 
 

@@ -8,12 +8,14 @@ import * as deepAssign from "deep-assign";
 
 export const AttributeReducer = (state: GurpsDataStore.All = GurpsDataStoreInitialState, action: AttributeAction): GurpsDataStore.All => {
     console.log("AttributeReducer."+action.type+"("+JSON.stringify(action)+")");
+    let singleAttribute : any =  {};
     switch (action.type) {
         case AttributeActionTypesConsts.SET_PRIMARY_ATTRIBUTE:
-            let singleAttribute : any =  {};
             singleAttribute[action.attributeId] = {value:action.value};
-            let charAssign = {character:{attributes:singleAttribute}};
-            return deepAssign({},state,charAssign);
+            return deepAssign({},state, {character:{attributes:singleAttribute}});
+        case AttributeActionTypesConsts.SET_DERIVED_ATTRIBUTE:
+            singleAttribute[action.attributeId] = {cost:action.cost};
+            return deepAssign({},state,{character:{attributes:singleAttribute}});
         default:
             return state;
     }

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as styles from "./attribute-element.css";
 import {GurpsDataStore} from "../datastore/gurps-char-gen-datastore";
 import {setDerivedAttribute, setPrimaryAttribute} from "../actions/attribute-action-factory";
-import {attributeValueBox} from "./attribute-element.css";
+import * as _ from "lodash";
 
 export interface AttributeElementProps {
     attributeId:string;
@@ -22,7 +22,7 @@ interface ConnectedState {
 }
 
 interface ConnectedDispatch {
-    setAttribute: (isDerived:boolean, attributeId:string, value: number) => void;
+    setAttribute: (value: number, props: AttributeElementProps & ConnectedState) => void;
 }
 
 const mapStateToProps = (state: GurpsDataStore.All, ownProps: AttributeElementProps): ConnectedState => {
@@ -41,13 +41,13 @@ const mapStateToProps = (state: GurpsDataStore.All, ownProps: AttributeElementPr
         cost = characterAttribute.cost;
         let baseValue =   state.character.attributes[systemAttribute.derived].value || state.system.attributes[systemAttribute.derived].base;
         value = baseValue + Math.floor(cost/costPerRaise);
-        attributeValueBoxStyle+=(" "+styles.activeAttributeTextbox);
-        attributeCostBoxStyle+=(" "+styles.inactiveAttributTextbox);
+        attributeCostBoxStyle+=(" "+styles.activeAttributeTextbox);
+        attributeValueBoxStyle+=(" "+styles.inactiveAttributTextbox);
     } else {
         value = characterAttribute.value || systemAttribute.base;
         cost = (value-systemAttribute.base) * costPerRaise;
-        attributeCostBoxStyle+=(" "+styles.activeAttributeTextbox);
-        attributeValueBoxStyle+=(" "+styles.inactiveAttributTextbox);
+        attributeValueBoxStyle+=(" "+styles.activeAttributeTextbox);
+        attributeCostBoxStyle+=(" "+styles.inactiveAttributTextbox);
     }
 
 
@@ -63,11 +63,12 @@ const mapStateToProps = (state: GurpsDataStore.All, ownProps: AttributeElementPr
 };
 
 const mapDispatchToProps = (dispatch: redux.Dispatch<GurpsDataStore.All>): ConnectedDispatch => ({
-    setAttribute: (isDerived:boolean, attributeId:string, n: number) => {
-        if(isDerived) {
-            dispatch(setDerivedAttribute(attributeId,n));
+    setAttribute: (n:number, props :AttributeElementProps & ConnectedState) => {
+        console.log("AttributeElement.etAttribute value:"+n+", attribute:"+props.attributeId);
+        if(props.isDerived) {
+            dispatch(setDerivedAttribute(props.attributeId,n));
         } else {
-            dispatch(setPrimaryAttribute(attributeId,n));
+            dispatch(setPrimaryAttribute(props.attributeId,n));
         }
     }
 });
@@ -75,29 +76,51 @@ const mapDispatchToProps = (dispatch: redux.Dispatch<GurpsDataStore.All>): Conne
 
 
 class _AttributeElement extends React.Component<ConnectedState & ConnectedDispatch & AttributeElementProps , {}> {
+    private _debounceSetAttribute:Function;
+    private _timeout: number = null;
 
-    _onSetAttribute = (event : React.ChangeEvent<HTMLTextAreaElement>)=>{
-        this.props.setAttribute(this.props.isDerived, this.props.attributeId, Number(event.target.value));
+    constructor(props: AttributeElementProps & ConnectedState & ConnectedDispatch ) {
+        super(props);
+        this._debounceSetAttribute = _.debounce(props.setAttribute,1000);
+    }
+
+    _onAttributeChange = (event : React.ChangeEvent<HTMLTextAreaElement>)=>{
+        let value = Number(event.target.value);
+        let props = this.props;
+        console.log("_onAttributeChange ResetTimer for value:",value);
+        clearTimeout(this._timeout);
+        this._timeout = setTimeout(()=>{
+            console.log("_onAttributeChange setAttribute :",value);
+            this.props.setAttribute(value,props);
+        },5000);
+
     };
+
+    // _onSetAttribute = (event : React.ChangeEvent<HTMLTextAreaElement>)=>{
+    //     let value = Number(event.target.value);
+    //     let props = this.props;
+    //     props.setAttribute(value,props);
+    // };
+
 
     render () {
         const {name, value, cost, attributeId,attributeValueBoxStyle,attributeCostBoxStyle,isDerived,costPerRaise} = this.props;
         return <div className={styles.attributeElement}>
             <label className={styles.attributeName}>{name}</label>
             <input className={attributeValueBoxStyle}
-                   onChange={this._onSetAttribute.bind(this)}
+                   onBlur={this._onAttributeChange.bind(this)}
                    type="number" value={value}
                    min="1"
                    max="20"
                    disabled={isDerived}/>
             <label className={styles.squareBrackets} type="text" ></label>
             <input className={attributeCostBoxStyle}
-                   onChange={this._onSetAttribute.bind(this)}
+                   onChange={this._onAttributeChange.bind(this)}
                    type="number"
                    value={cost}
                    disabled={!isDerived}
-                   min="-100"
-                   max="100"
+                   min="-30"
+                   max="30"
                    step={costPerRaise}
             />
         </div>

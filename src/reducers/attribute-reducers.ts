@@ -14,7 +14,13 @@ export const AttributeReducer = (state: GurpsDataStore.All = GurpsDataStoreIniti
             singleAttribute[action.attributeId] = {value:action.value};
             return deepAssign({},state, {character:{attributes:singleAttribute}});
         case AttributeActionTypesConsts.SET_DERIVED_ATTRIBUTE:
-            singleAttribute[action.attributeId] = {cost:action.cost};
+            let attributeSystemData = state.system.attributes[action.attributeId];
+            let costInput = action.cost;
+            let trueCost = (costInput>0?
+                    Math.ceil(costInput/attributeSystemData.costPerRaise):
+                    Math.floor(costInput/attributeSystemData.costPerRaise))
+                *attributeSystemData.costPerRaise;
+            singleAttribute[action.attributeId] = {cost:trueCost};
             return deepAssign({},state,{character:{attributes:singleAttribute}});
         default:
             return state;

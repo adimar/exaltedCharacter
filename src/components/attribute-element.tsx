@@ -108,7 +108,7 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
         return <div className={styles.attributeElement}>
             <label className={styles.attributeName}>{name}</label>
             <input className={attributeValueBoxStyle}
-                   onBlur={this._onAttributeChange.bind(this)}
+                   onChange={this._onAttributeChange.bind(this)}
                    type="number" value={value}
                    min="1"
                    max="20"

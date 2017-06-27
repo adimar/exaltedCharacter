@@ -86,7 +86,7 @@ module.exports = {
         new webpack.optimize.AggressiveMergingPlugin(),
         new ExtractTextPlugin({
             filename: 'styles.css',
-            disable: true
+            disable: false
         }),
         new HtmlWebpackPlugin({
             template: 'index.html'

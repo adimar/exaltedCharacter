@@ -79,7 +79,7 @@
 }
 
 .activeAttributeTextbox {
-    background-color: activeInputColor ;
+    background-color: yellow ;
 }
 
 .inactiveAttributeTextbox {

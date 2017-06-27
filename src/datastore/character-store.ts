@@ -29,6 +29,7 @@ export const CharacterAttributeStoreInitialState : cAttributesStore = {
     will: {cost:0},
     per: {cost:0},
     fp: {cost:0},
+    strk: {cost:0},
 }
 
 

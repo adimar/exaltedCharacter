@@ -34,14 +34,15 @@ class _AttributesPane extends React.Component<{} , {}> {
 
         return <div>
 
-            <AttributeElement attributeId="st"/><br/>
-            <AttributeElement attributeId="dx"/><br/>
-            <AttributeElement attributeId="iq"/><br/>
-            <AttributeElement attributeId="ht"/><br/>
-            <AttributeElement attributeId="hp"/><br/>
-            <AttributeElement attributeId="will"/><br/>
-            <AttributeElement attributeId="per"/><br/>
-            <AttributeElement attributeId="fp"/><br/>
+            <AttributeElement attributeId="st"/>
+            <AttributeElement attributeId="dx"/>
+            <AttributeElement attributeId="iq"/>
+            <AttributeElement attributeId="ht"/>
+            <AttributeElement attributeId="hp"/>
+            <AttributeElement attributeId="will"/>
+            <AttributeElement attributeId="per"/>
+            <AttributeElement attributeId="fp"/>
+            <AttributeElement attributeId="strk"/>
         </div>
     }
 }

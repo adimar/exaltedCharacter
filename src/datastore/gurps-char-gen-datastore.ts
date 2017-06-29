@@ -3,18 +3,13 @@
 
 import {SystemDataStore, SystemDataStoreInitialState} from "./system-store";
 import {CharacterDataStore, CharacterDataStoreInitialState} from "./character-store";
-export namespace GurpsDataStore {
+export type GurpsDataStore = {
 
-
-
-
-    export type All = {
-        system: SystemDataStore.All,
-        character: CharacterDataStore.All
-    }
+    system: SystemDataStore,
+    character: CharacterDataStore
 }
 
-export const GurpsDataStoreInitialState : GurpsDataStore.All = {
+export const GurpsDataStoreInitialState : GurpsDataStore = {
     system: SystemDataStoreInitialState,
     character: CharacterDataStoreInitialState
 }

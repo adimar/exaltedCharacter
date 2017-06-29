@@ -2,21 +2,20 @@
 
 
 
-import cAttributesStore = CharacterDataStore.cAttributesStore;
-export namespace CharacterDataStore {
 
-    export type cAttribute = {
-        value?: number;
-        cost?: number;
-    }
+export type cAttribute = {
+    value?: number;
+    cost?: number;
+}
 
-    export type cAttributesStore = {[attributeId:string]: cAttribute};
-
+export type cAttributesStore = {[attributeId:string]: cAttribute};
+export type CharacterDataStore = {
 
 
-    export type All = {
-        attributes: cAttributesStore
-    }
+
+
+    attributes: cAttributesStore
+
 }
 
 
@@ -33,6 +32,6 @@ export const CharacterAttributeStoreInitialState : cAttributesStore = {
 }
 
 
-export const CharacterDataStoreInitialState : CharacterDataStore.All = {
+export const CharacterDataStoreInitialState : CharacterDataStore = {
     attributes: CharacterAttributeStoreInitialState
 }

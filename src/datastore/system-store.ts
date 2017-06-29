@@ -7,27 +7,22 @@ export type AttributeIdConstTypes = keyof typeof AttributeIdConsts;
 export const PrimaryAttributeIdConsts = strEnum(["st","dx","iq","ht"]);
 export type PrimaryAttributeIdConstTypes = keyof typeof PrimaryAttributeIdConsts;
 
-import AttributesStore = SystemDataStore.AttributesStore;
-import StrengthDataTables = SystemDataStore.StrengthDataTables;
-export namespace SystemDataStore {
 
-    export type Attribute = {
-        name: string;
-        costPerRaise: number;
-        base?: number;
-        derived?: PrimaryAttributeIdConstTypes;
-        data?: StrengthDataTables
-    }
+export type StrengthDataTables = {damage:{[level:number]:{swing:string,thrust:string}}};
 
-    export type StrengthDataTables = {damage:{[level:number]:{swing:string,thrust:string}}};
-
-    export type AttributesStore = {[attributeId:string]: Attribute};
+export type AttributesStore = {[attributeId:string]: Attribute};
 
 
+export type Attribute = {
+    name: string;
+    costPerRaise: number;
+    base?: number;
+    derived?: PrimaryAttributeIdConstTypes;
+    data?: StrengthDataTables
+}
 
-    export type All = {
-        attributes: AttributesStore
-    }
+export type SystemDataStore = {
+    attributes: AttributesStore
 }
 
 export const StrengthDataTableInitialState : StrengthDataTables = {
@@ -68,6 +63,6 @@ export const SystemAttributeStoreInitialState : AttributesStore = {
 }
 
 
-export const SystemDataStoreInitialState : SystemDataStore.All = {
+export const SystemDataStoreInitialState : SystemDataStore = {
     attributes: SystemAttributeStoreInitialState
 }

@@ -6,7 +6,7 @@ import {AttributeAction, AttributeActionTypesConsts} from "../actions/attribute-
 import * as deepAssign from "deep-assign";
 
 
-export const AttributeReducer = (state: GurpsDataStore.All = GurpsDataStoreInitialState, action: AttributeAction): GurpsDataStore.All => {
+export const AttributeReducer = (state: GurpsDataStore = GurpsDataStoreInitialState, action: AttributeAction): GurpsDataStore => {
     console.log("AttributeReducer."+action.type+"("+JSON.stringify(action)+")");
     let singleAttribute : any =  {};
     switch (action.type) {

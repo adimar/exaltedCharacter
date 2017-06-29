@@ -16,11 +16,11 @@ interface ConnectedDispatch {
 
 }
 
-const mapStateToPropsAttributePane = (state: GurpsDataStore.All, ownProps: AttributePaneProps): ConnectedState => ({
+const mapStateToPropsAttributePane = (state: GurpsDataStore, ownProps: AttributePaneProps): ConnectedState => ({
 
 })
 
-const mapDispatchToPropsAttributePane = (dispatch: redux.Dispatch<GurpsDataStore.All>): ConnectedDispatch => ({
+const mapDispatchToPropsAttributePane = (dispatch: redux.Dispatch<GurpsDataStore>): ConnectedDispatch => ({
 
 })
 

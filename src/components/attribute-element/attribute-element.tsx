@@ -25,7 +25,7 @@ interface ConnectedDispatch {
     setAttribute: (value: number, props: AttributeElementProps & ConnectedState) => void;
 }
 
-const mapStateToProps = (state: GurpsDataStore.All, ownProps: AttributeElementProps): ConnectedState => {
+const mapStateToProps = (state: GurpsDataStore, ownProps: AttributeElementProps): ConnectedState => {
     let attributeId = ownProps.attributeId;
     var systemAttribute = state.system.attributes[attributeId];
     var characterAttribute = state.character.attributes[attributeId];
@@ -56,7 +56,7 @@ const mapStateToProps = (state: GurpsDataStore.All, ownProps: AttributeElementPr
     };
 };
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<GurpsDataStore.All>): ConnectedDispatch => ({
+const mapDispatchToProps = (dispatch: redux.Dispatch<GurpsDataStore>): ConnectedDispatch => ({
     setAttribute: (n: number, props: AttributeElementProps & ConnectedState) => {
         console.log("AttributeElement.etAttribute value:" + n + ", attribute:" + props.attributeId);
         if (props.isDerived) {

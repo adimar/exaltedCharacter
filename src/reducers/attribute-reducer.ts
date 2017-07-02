@@ -1,6 +1,7 @@
 import {AggregateDataStore, AggregateDataStoreInitialState} from "../datastore/aggregate-datastore";
 import {AttributeAction, AttributeActionTypesConsts} from "../actions/attribute-action-factory";
 import * as deepAssign from "deep-assign";
+import {SystemDataStore} from "../datastore/system-static-store/system-data-store";
 
 export const AttributeReducer = (state: AggregateDataStore = AggregateDataStoreInitialState, action: AttributeAction): AggregateDataStore => {
     console.log("AttributeReducer."+action.type+"("+JSON.stringify(action)+")");
@@ -10,7 +11,7 @@ export const AttributeReducer = (state: AggregateDataStore = AggregateDataStoreI
             singleAttribute[action.attributeId] = {value:action.value};
             return deepAssign({},state, {character:{attributes:singleAttribute}});
         case AttributeActionTypesConsts.SET_DERIVED_ATTRIBUTE:
-            let attributeSystemData = state.system.attributes[action.attributeId];
+            let attributeSystemData = SystemDataStore.attributes[action.attributeId];
             let costInput = action.cost;
             let trueCost = (costInput>0?
                     Math.ceil(costInput/attributeSystemData.costPerRaise):

@@ -4,17 +4,11 @@ import { connect } from "react-redux";
 import { AttributeElement} from "./attribute-element/attribute-element";
 import {AggregateDataStore} from "../datastore/aggregate-datastore";
 
-export interface AttributePaneProps {
+export interface AttributePaneProps {}
 
-}
+interface ConnectedState {}
 
-interface ConnectedState {
-
-}
-
-interface ConnectedDispatch {
-
-}
+interface ConnectedDispatch {}
 
 const mapStateToPropsAttributePane = (state: AggregateDataStore, ownProps: AttributePaneProps): ConnectedState => ({
 
@@ -42,7 +36,9 @@ class _AttributesPane extends React.Component<{} , {}> {
             <AttributeElement attributeId="will"/>
             <AttributeElement attributeId="per"/>
             <AttributeElement attributeId="fp"/>
-            <AttributeElement attributeId="strk"/>
+            <AttributeElement attributeId="strike"/>
+            <AttributeElement attributeId="speed"/>
+            <AttributeElement attributeId="move"/>
         </div>
     }
 }

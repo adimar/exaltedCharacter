@@ -1,12 +1,13 @@
 import * as React from "react";
 import * as redux from "redux";
 import {connect} from "react-redux";
-
+import { Textfit } from 'react-textfit';
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {setDerivedAttribute, setPrimaryAttribute} from "../../actions/attribute-action-factory";
 import * as _ from "lodash";
 
 import * as styles from "./attribute-element.css";
+import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 
 export interface AttributeElementProps {
     attributeId: string;
@@ -19,6 +20,7 @@ interface ConnectedState {
     cost: number;
     isDerived: boolean,
     costPerRaise: number
+    raiseStep: number;
 }
 
 interface ConnectedDispatch {
@@ -27,19 +29,18 @@ interface ConnectedDispatch {
 
 const mapStateToProps = (state: AggregateDataStore, ownProps: AttributeElementProps): ConnectedState => {
     let attributeId = ownProps.attributeId;
-    var systemAttribute = state.system.attributes[attributeId];
+    var systemAttribute = SystemDataStore.attributes[attributeId];
     var characterAttribute = state.character.attributes[attributeId];
     let isDerived = (systemAttribute.derived ? true : false);
     let costPerRaise = systemAttribute.costPerRaise;
-
+    let raiseStep  = systemAttribute.raiseStep||1;
     let cost;
     let value;
 
 
     if (isDerived) {
         cost = characterAttribute.cost;
-        let baseValue = state.character.attributes[systemAttribute.derived].value || state.system.attributes[systemAttribute.derived].base;
-        value = baseValue + Math.floor(cost / costPerRaise);
+        value = systemAttribute.derived(state) + Math.floor(cost / costPerRaise)*raiseStep;
 
     } else {
         value = characterAttribute.value || systemAttribute.base;
@@ -48,11 +49,12 @@ const mapStateToProps = (state: AggregateDataStore, ownProps: AttributeElementPr
 
 
     return {
-        name: state.system.attributes[attributeId].name,
+        name: SystemDataStore.attributes[attributeId].name,
         value: value,
         cost: cost,
         isDerived: isDerived,
         costPerRaise: costPerRaise,
+        raiseStep: raiseStep,
     };
 };
 
@@ -83,7 +85,7 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
 
 
     render() {
-        const {name, value, cost, attributeId, isDerived, costPerRaise} = this.props;
+        const {name, value, cost, attributeId, isDerived, costPerRaise, raiseStep} = this.props;
 
 
         let attributeValueElement: any;
@@ -91,9 +93,9 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
         if (isDerived) {
 
             attributeValueElement =
-                <label className={styles.attributeValueBox + " " + styles.inactiveAttributeTextbox}>{value}</label>;
+                <label className={styles.attributeValueBox + " " + styles.inactiveAttributeValueBox}>{value}</label>;
             attributeCostElement =
-                <input className={styles.attributeCostBox + " " + styles.activeAttributeTextbox}
+                <input className={styles.attributeCostBox + " " + styles.activeAttributeCostBox}
                        onChange={this._onAttributeChange.bind(this)}
                        type="number"
                        value={cost}
@@ -104,19 +106,21 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
                        step={costPerRaise}/>;
         } else {
             attributeValueElement =
-                <input className={styles.attributeValueBox + " " + styles.activeAttributeTextbox}
+                <input className={styles.attributeValueBox + " " + styles.activeAttributeValueBox}
                        onChange={this._onAttributeChange.bind(this)}
                        type="number" value={value}
                        min="1"
                        max="20"/>;
             attributeCostElement =
-                <label className={styles.attributeCostBox + " " + styles.inactiveAttributeTextbox}>{cost}</label>;
+                <label className={styles.attributeCostBox + " " + styles.inactiveAttributeCostBox}>{cost}</label>;
         }
 
 
         return(
             <div className={styles.attributeElement}>
-                <label className={styles.attributeName}>{name}</label>
+                <Textfit className={styles.attributeName} mode="multi">
+                    {name}
+                </Textfit>
                 {attributeValueElement}
                 <label className={styles.squareBrackets} type="text"></label>
                 {attributeCostElement}

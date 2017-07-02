@@ -36,4 +36,10 @@ export const setDerivedAttribute  = (attributeId:string, cost: number): SetDeriv
     attributeId: attributeId,
     cost: cost,
 });
-
+//
+// export function setPrimarkAttributeThunk(attributeId:string, value: number) {
+//     return function(dispatch) {
+//         dispatch(setPrimaryAttribute(attributeId,value));
+//         dispatch
+//     };
+// }

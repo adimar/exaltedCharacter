@@ -2,7 +2,7 @@ import * as React from "react";
 import * as redux from "redux";
 import { connect } from "react-redux";
 import { AttributeElement} from "./attribute-element/attribute-element";
-import {GurpsDataStore} from "../datastore/gurps-char-gen-datastore";
+import {AggregateDataStore} from "../datastore/aggregate-datastore";
 
 export interface AttributePaneProps {
 
@@ -16,11 +16,11 @@ interface ConnectedDispatch {
 
 }
 
-const mapStateToPropsAttributePane = (state: GurpsDataStore, ownProps: AttributePaneProps): ConnectedState => ({
+const mapStateToPropsAttributePane = (state: AggregateDataStore, ownProps: AttributePaneProps): ConnectedState => ({
 
 })
 
-const mapDispatchToPropsAttributePane = (dispatch: redux.Dispatch<GurpsDataStore>): ConnectedDispatch => ({
+const mapDispatchToPropsAttributePane = (dispatch: redux.Dispatch<AggregateDataStore>): ConnectedDispatch => ({
 
 })
 

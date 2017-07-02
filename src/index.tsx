@@ -5,11 +5,11 @@ import * as React from "react";
 
 
 import {AggregateReducer} from "./reducers/aggregate-reducer";
-import {GurpsDataStore} from "./datastore/gurps-char-gen-datastore";
+import {AggregateDataStore} from "./datastore/aggregate-datastore";
 import {AttributesPane} from "./components/attribute-pane";
 
 
-let myStore: Redux.Store<GurpsDataStore> = Redux.createStore(AggregateReducer)
+let myStore: Redux.Store<AggregateDataStore> = Redux.createStore(AggregateReducer);
 
 ReactDOM.render(
     <Provider store={myStore}>

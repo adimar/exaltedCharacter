@@ -2,7 +2,7 @@ import * as React from "react";
 import * as redux from "redux";
 import {connect} from "react-redux";
 
-import {GurpsDataStore} from "../../datastore/gurps-char-gen-datastore";
+import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {setDerivedAttribute, setPrimaryAttribute} from "../../actions/attribute-action-factory";
 import * as _ from "lodash";
 
@@ -25,7 +25,7 @@ interface ConnectedDispatch {
     setAttribute: (value: number, props: AttributeElementProps & ConnectedState) => void;
 }
 
-const mapStateToProps = (state: GurpsDataStore, ownProps: AttributeElementProps): ConnectedState => {
+const mapStateToProps = (state: AggregateDataStore, ownProps: AttributeElementProps): ConnectedState => {
     let attributeId = ownProps.attributeId;
     var systemAttribute = state.system.attributes[attributeId];
     var characterAttribute = state.character.attributes[attributeId];
@@ -56,7 +56,7 @@ const mapStateToProps = (state: GurpsDataStore, ownProps: AttributeElementProps)
     };
 };
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<GurpsDataStore>): ConnectedDispatch => ({
+const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>): ConnectedDispatch => ({
     setAttribute: (n: number, props: AttributeElementProps & ConnectedState) => {
         console.log("AttributeElement.etAttribute value:" + n + ", attribute:" + props.attributeId);
         if (props.isDerived) {

@@ -1,14 +1,14 @@
 
 
 
-import {Action, combineReducers, Store} from "redux";
+import {Action, Store} from "redux";
 import {AttributeReducer} from "./attribute-reducer";
-import {GurpsDataStore, GurpsDataStoreInitialState} from "../datastore/gurps-char-gen-datastore";
+import {AggregateDataStore, AggregateDataStoreInitialState} from "../datastore/aggregate-datastore";
 import * as _ from "lodash";
 
 
 
-export  const AggregateReducer = <A extends Action>(state: GurpsDataStore = GurpsDataStoreInitialState, action: A): GurpsDataStore => {
+export  const AggregateReducer = <A extends Action>(state: AggregateDataStore = AggregateDataStoreInitialState, action: A): AggregateDataStore => {
     console.log("AggregateReducers."+action.type+"("+JSON.stringify(action)+")");
     _.forEach(ReducerRegistry.reducers,reducer=>{
         state = reducer(state,<any>action);
@@ -19,7 +19,7 @@ export  const AggregateReducer = <A extends Action>(state: GurpsDataStore = Gurp
 
 
 class _ReducerRegistry {
-    private  _reducersArray:{ <A extends Action>(state:Store<GurpsDataStore>,action:A):GurpsDataStore}[] = [];
+    private  _reducersArray:{ <A extends Action>(state:Store<AggregateDataStore>,action:A):AggregateDataStore}[] = [];
     public register(reducer) {
         this._reducersArray.push(reducer);
     }
@@ -32,9 +32,3 @@ class _ReducerRegistry {
 
 export const ReducerRegistry = new _ReducerRegistry();
 ReducerRegistry.register(AttributeReducer);
-
-// export function RegisterReducer() {
-//     return function(target,properyKey:string,decriptor: PropertyDescriptor) {
-//         ReducerRegistry.register(target);
-//     }
-// }

@@ -2,7 +2,7 @@
 
 
 
-import {CharacterDataStore, CharacterDataStoreInitialState} from "./character-store";
+import {CharacterDataStore, CharacterDataStoreInitialState} from "./character-store/character-store";
 export type AggregateDataStore = {
     character: CharacterDataStore
 }

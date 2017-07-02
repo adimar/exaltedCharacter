@@ -2,8 +2,9 @@ import * as React from "react";
 import * as redux from "redux";
 import { connect } from "react-redux";
 import {AggregateDataStore} from "./datastore/aggregate-datastore";
-import {AttributesPane} from "./components/attribute-pane";
+import {AttributesPane} from "./components/pane-attributes/pane-attributes";
 import {CalculatedStats} from "./components/calculated-stats/calculated-stats-element";
+import {SkillsPane} from "./components/pane-skills/pane-skills";
 
 export interface GurpsCharacterSheetProps {
 
@@ -35,6 +36,8 @@ class _GurpsCharacterSheet extends React.Component<{} , {}> {
             <AttributesPane/>
 
             <CalculatedStats/>
+
+            <SkillsPane/>
         </div>
     }
 }

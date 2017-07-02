@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as redux from "redux";
 import { connect } from "react-redux";
-import { AttributeElement} from "./attribute-element/attribute-element";
-import {AggregateDataStore} from "../datastore/aggregate-datastore";
+import { AttributeElement} from "../attribute-element/attribute-element";
+import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 
 export interface AttributePaneProps {}
 

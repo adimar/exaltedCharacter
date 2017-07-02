@@ -5,6 +5,7 @@ import {Action, Store} from "redux";
 import {AttributeReducer} from "./attribute-reducer";
 import {AggregateDataStore, AggregateDataStoreInitialState} from "../datastore/aggregate-datastore";
 import * as _ from "lodash";
+import {SkillsReducer} from "./skills-reducer";
 
 
 
@@ -32,3 +33,4 @@ class _ReducerRegistry {
 
 export const ReducerRegistry = new _ReducerRegistry();
 ReducerRegistry.register(AttributeReducer);
+ReducerRegistry.register(SkillsReducer);

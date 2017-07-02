@@ -12,20 +12,11 @@ type Skill = {
     difficulty: SkillDifficultyConstsTypes
 }
 
-type SkillStore = { [skillId: string]: Skill };
-
-export const SkillDifficultyStart = {
-    "E": 0,
-    "A": -1,
-    "H": -2,
-    "VH": -3
-}
-
-export const SkillDifficultyCost = [1,2,4,8,12,16,20,24,28];
+type SkillListStore = { [skillId: string]: Skill };
 
 
 
-export const SystemSkillsStoreInitialState: SkillStore = {
+const SystemSkillsListStoreInitialState: SkillListStore = {
     animalHandling:{ name:"Animal Handling",attributeId:"iq",difficulty:"A"},
     anthropology:{ name:"Anthropology",attributeId:"iq",difficulty:"H"},
     areaKnowledge:{ name:"Area Knowledge",attributeId:"iq",difficulty:"E"},
@@ -302,4 +293,33 @@ export const SystemSkillsStoreInitialState: SkillStore = {
     wrestling:{ name:"Wrestling",attributeId:"dx",difficulty:"A"},
     writing:{ name:"Writing",attributeId:"iq",difficulty:"A"},
     zenArchery:{ name:"Zen Archery",attributeId:"iq",difficulty:"VH"}
+}
+
+
+const SkillDifficultyStart = {
+    "E": 0,
+    "A": -1,
+    "H": -2,
+    "VH": -3
+}
+
+const SkillDifficultyCost = [1,2,4,8,12,16,20,24,28];
+
+
+type SkillsStore = {
+    list: SkillListStore;
+    getStartingRelativeLevel: (skillDifficulty:string)=>number,
+    getCost: (skillDifficulty:string, relativeLevel: number)=>number
+}
+
+
+export const SystemSkillsStoreInitialState: SkillsStore = {
+    list: SystemSkillsListStoreInitialState,
+    getStartingRelativeLevel: (skillDifficulty:string):number =>{
+        return SkillDifficultyStart[skillDifficulty]
+    },
+    getCost: (skillDifficulty:string, relativeLevel: number):number => {
+        var normalizedRelativeSkill = relativeLevel-SkillDifficultyStart[skillDifficulty];
+        return SkillDifficultyCost[normalizedRelativeSkill];
+    }
 }

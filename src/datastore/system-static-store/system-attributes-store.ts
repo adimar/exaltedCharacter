@@ -8,11 +8,11 @@ export type PrimaryAttributeIdConstTypes = keyof typeof PrimaryAttributeIdConsts
 
 type StrengthDataTables = { damage: { [level: number]: { swing: string, thrust: string } } };
 
-type AttributesStore = { [attributeId: string]: Attribute };
+type AttributesStore = { [attributeId: string]: SystemAttribute };
 
 type DerivedCalculationFunction = (state: any) => number;
 
-type Attribute = {
+type SystemAttribute = {
     name: string;
     costPerRaise?: number;
     raiseStep?: number;

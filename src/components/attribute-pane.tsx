@@ -39,6 +39,8 @@ class _AttributesPane extends React.Component<{} , {}> {
             <AttributeElement attributeId="strike"/>
             <AttributeElement attributeId="speed"/>
             <AttributeElement attributeId="move"/>
+            <AttributeElement attributeId="dodge"/>
+            <AttributeElement attributeId="bl"/>
         </div>
     }
 }

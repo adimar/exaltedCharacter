@@ -28,20 +28,14 @@ const mapStateToPropsCalculatedStats = (state: AggregateDataStore, ownProps: Cal
 
     let stValue = state.character.attributes.st.value;
     let strikeValue = stValue + state.character.attributes.strike.cost/SystemDataStore.attributes.strike.costPerRaise;
-    let dxValue =state.character.attributes.dx.value;
-    let htValue = state.character.attributes.ht.value;
-
-
     let strikeDamage =  SystemDataStore.attributes.st.data.damage[strikeValue];
-
-   // let strkStrValue = state.character.attributes.strkStr.value;
     let cs :CalculatedStatsConnectedState = {
-        basicLift: SystemDataStore.attributes.bl.derived(state),
+        basicLift: SystemDataStore.attributes.bl.derived.base(state),
         damageThr: strikeDamage.thrust,
         damageSw: strikeDamage.swing,
-        basicSpeed:  SystemDataStore.attributes.speed.derived(state),
-        basicMove:  SystemDataStore.attributes.move.derived(state),
-        dodge:  SystemDataStore.attributes.dodge.derived(state)
+        basicSpeed:  SystemDataStore.attributes.speed.derived.base(state),
+        basicMove:  SystemDataStore.attributes.move.derived.base(state),
+        dodge:  SystemDataStore.attributes.dodge.derived.base(state)
     };
 
     return cs;

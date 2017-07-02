@@ -1,6 +1,6 @@
 import {strEnum} from "../../helpers/str-enum";
 import {SystemDataStore} from "./system-data-store";
-export const AttributeIdConsts = strEnum(["st", "dx", "iq", "ht", "hp", "will", "per", "fp", "strike", "move", "speed"]);
+export const AttributeIdConsts = strEnum(["st", "dx", "iq", "ht", "hp", "will", "per", "fp", "strike", "move", "speed","dodge","bl"]);
 export type AttributeIdConstTypes = keyof typeof AttributeIdConsts;
 export const PrimaryAttributeIdConsts = strEnum(["st", "dx", "iq", "ht"]);
 export type PrimaryAttributeIdConstTypes = keyof typeof PrimaryAttributeIdConsts;
@@ -17,7 +17,7 @@ type Attribute = {
     costPerRaise?: number;
     raiseStep?: number;
     base?: number;
-    derived?: DerivedCalculationFunction;
+    derived?: {base: DerivedCalculationFunction, value: DerivedCalculationFunction};
     data?: StrengthDataTables
 }
 
@@ -44,18 +44,37 @@ const StrengthDataTableInitialState: StrengthDataTables = {
         18: {swing: "3d", thrust: "1d+2"},
         19: {swing: "3d+1", thrust: "2d-1"},
         20: {swing: "3d+2", thrust: "2d-1"},
+        21: {swing: "4d-1", thrust: "2d"},
+        22: {swing: "4d", thrust: "2d"},
+        23: {swing: "4d+1", thrust: "2d+1"},
+        24: {swing: "4d+2", thrust: "2d+1"},
+        25: {swing: "5d-1", thrust: "2d+2"},
+        26: {swing: "5d", thrust: "2d+2"},
     }
 }
 
-const genericCalculateDerivedAttribute = (attributeId: string) => {
+const genericCalculateDerivedAttribute = (attributeId: string,derivedAttributeId: string) => {
     let _attributeId: string = attributeId;
-    return function (state): number {
-        return getAttributeValue(state, _attributeId);
+    let _derivedAttributeId: string = derivedAttributeId;
+    var base =  function (state): number {
+        return getPrimaryAttributeValue(state, _attributeId);
     }
+
+    var value = function (state): number {
+        return getDerivedAttributeValue(state,base,_derivedAttributeId);
+    }
+
+    return {base: base, value:value};
 }
 
-const getAttributeValue = (state, attributeId: string): number => {
+const getPrimaryAttributeValue = (state, attributeId: string): number => {
     return state.character.attributes[attributeId].value || SystemDataStore.attributes[attributeId].base;
+}
+
+const getDerivedAttributeValue = (state,base, derivedAttributeId: string):number => {
+
+    return base(state) + (state.character.attributes[derivedAttributeId].cost /
+        SystemDataStore.attributes[derivedAttributeId].costPerRaise)*(SystemDataStore.attributes[derivedAttributeId].raiseStep||1);
 }
 
 export const SystemAttributeStoreInitialState: AttributesStore = {
@@ -63,49 +82,53 @@ export const SystemAttributeStoreInitialState: AttributesStore = {
     dx: {name: "DX", costPerRaise: 20, base: 10},
     iq: {name: "IQ", costPerRaise: 20, base: 10},
     ht: {name: "HT", costPerRaise: 10, base: 10},
-    hp: {name: "HP", costPerRaise: 2, derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.st)},
-    will: {name: "WIL", costPerRaise: 5, derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.iq)},
-    per: {name: "PER", costPerRaise: 5, derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.iq)},
-    fp: {name: "FP", costPerRaise: 3, derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.ht)},
+    hp: {name: "HP", costPerRaise: 2, derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.st, AttributeIdConsts.hp)},
+    will: {name: "WIL", costPerRaise: 5, derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.iq, AttributeIdConsts.will)},
+    per: {name: "PER", costPerRaise: 5, derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.iq, AttributeIdConsts.per)},
+    fp: {name: "FP", costPerRaise: 3, derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.ht, AttributeIdConsts.fp)},
     strike: {
         name: "Striking Strength",
         costPerRaise: 5,
-        derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.st)
+        derived: genericCalculateDerivedAttribute(PrimaryAttributeIdConsts.st, AttributeIdConsts.strike)
     },
     speed: {
         name: "Basic Speed",
         costPerRaise: 5,
         raiseStep: 0.25,
-        derived: (state) => (
-            getAttributeValue(state,PrimaryAttributeIdConsts.dx)+
-            getAttributeValue(state,PrimaryAttributeIdConsts.ht)
-        ) / 4
+        derived: {base: (state) => (
+            getPrimaryAttributeValue(state,PrimaryAttributeIdConsts.dx)+
+            getPrimaryAttributeValue(state,PrimaryAttributeIdConsts.ht)
+        ) / 4,
+        value: (state)=> getDerivedAttributeValue(state, SystemDataStore.attributes.speed.derived.base,AttributeIdConsts.speed)}
     },
     move: {
         name: "Basic Move",
         costPerRaise: 5,
-        derived: (state) => {
+        derived: {base: (state) => {
             return Math.floor((
-                    getAttributeValue(state,PrimaryAttributeIdConsts.dx)+
-                    getAttributeValue(state,PrimaryAttributeIdConsts.ht) +
+                    getPrimaryAttributeValue(state,PrimaryAttributeIdConsts.dx)+
+                    getPrimaryAttributeValue(state,PrimaryAttributeIdConsts.ht) +
                     (state.character.attributes.speed.cost / SystemDataStore.attributes.speed.costPerRaise)
                 ) / 4);
-        }
+        }, value:  (state)=> getDerivedAttributeValue(state, SystemDataStore.attributes.move.derived.base,AttributeIdConsts.move)}
     },
     dodge: {
         name: "Dodge",
-        derived: (state) => {
+        derived: {base: (state) => {
             return Math.floor((
-                        getAttributeValue(state,PrimaryAttributeIdConsts.dx)+
-                        getAttributeValue(state,PrimaryAttributeIdConsts.ht) +
+                        getPrimaryAttributeValue(state,PrimaryAttributeIdConsts.dx)+
+                        getPrimaryAttributeValue(state,PrimaryAttributeIdConsts.ht) +
                         (state.character.attributes.speed.cost / SystemDataStore.attributes.speed.costPerRaise)
                     ) / 4)+3;
-        }
+        }, value:  null}
     },
     bl: {
         name: "Basic Lift",
+        derived: {
 
-        derived: (state)=> Math.pow(getAttributeValue(state,PrimaryAttributeIdConsts.st),2)/5
+            base:  (state)=> Math.pow(getPrimaryAttributeValue(state,PrimaryAttributeIdConsts.st),2)/5,
+            value: null
+        }
     }
 
 }

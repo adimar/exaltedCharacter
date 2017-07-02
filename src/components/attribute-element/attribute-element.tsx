@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as redux from "redux";
 import {connect} from "react-redux";
-import { Textfit } from 'react-textfit';
+import {Textfit} from 'react-textfit';
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {setDerivedAttribute, setPrimaryAttribute} from "../../actions/attribute-action-factory";
 import * as _ from "lodash";
@@ -33,14 +33,18 @@ const mapStateToProps = (state: AggregateDataStore, ownProps: AttributeElementPr
     var characterAttribute = state.character.attributes[attributeId];
     let isDerived = (systemAttribute.derived ? true : false);
     let costPerRaise = systemAttribute.costPerRaise;
-    let raiseStep  = systemAttribute.raiseStep||1;
+    let raiseStep = systemAttribute.raiseStep || 1;
     let cost;
     let value;
 
 
-    if (isDerived) {
+    if (isDerived && costPerRaise) {
         cost = characterAttribute.cost;
-        value = systemAttribute.derived(state) + Math.floor(cost / costPerRaise)*raiseStep;
+        value = systemAttribute.derived.value(state);
+
+    } else if (isDerived && !costPerRaise) {
+        cost = null;
+        value = systemAttribute.derived.base(state);
 
     } else {
         value = characterAttribute.value || systemAttribute.base;
@@ -90,21 +94,8 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
 
         let attributeValueElement: any;
         let attributeCostElement: any;
-        if (isDerived) {
 
-            attributeValueElement =
-                <label className={styles.attributeValueBox + " " + styles.inactiveAttributeValueBox}>{value}</label>;
-            attributeCostElement =
-                <input className={styles.attributeCostBox + " " + styles.activeAttributeCostBox}
-                       onChange={this._onAttributeChange.bind(this)}
-                       type="number"
-                       value={cost}
-                       disabled={!isDerived}
-                       min="-30"
-                       max="30"
-                       pattern="^-?.{1,2}$"
-                       step={costPerRaise}/>;
-        } else {
+        if (!isDerived) {
             attributeValueElement =
                 <input className={styles.attributeValueBox + " " + styles.activeAttributeValueBox}
                        onChange={this._onAttributeChange.bind(this)}
@@ -112,17 +103,39 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
                        min="1"
                        max="20"/>;
             attributeCostElement =
-                <label className={styles.attributeCostBox + " " + styles.inactiveAttributeCostBox}>{cost}</label>;
+                <label
+                    className={styles.attributeCostBox + " " + styles.inactiveAttributeCostBox + " " + styles.squareBrackets}>{cost}</label>;
+        } else if (costPerRaise) {
+
+            attributeValueElement =
+                <label className={styles.attributeValueBox + " " + styles.inactiveAttributeValueBox}>{value}</label>;
+            attributeCostElement =
+                <label className={styles.squareBrackets}>
+                    <input
+                        className={styles.attributeCostBox + " " + styles.activeAttributeCostBox}
+                        onChange={this._onAttributeChange.bind(this)}
+                        type="number"
+                        value={cost}
+                        disabled={!isDerived}
+                        min="-30"
+                        max="30"
+                        pattern="^-?.{1,2}$"
+                        step={costPerRaise}/>
+                </label>
+        } else {
+            attributeValueElement =
+                <label className={styles.attributeValueBox + " " + styles.inactiveAttributeValueBox}>{value}</label>;
+            attributeCostElement = "";
         }
 
 
-        return(
+        return (
             <div className={styles.attributeElement}>
                 <Textfit className={styles.attributeName} mode="multi">
                     {name}
                 </Textfit>
                 {attributeValueElement}
-                <label className={styles.squareBrackets} type="text"></label>
+                {/*<label className={styles.squareBrackets} type="text"></label>*/}
                 {attributeCostElement}
             </div>);
 

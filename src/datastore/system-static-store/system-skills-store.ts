@@ -1,6 +1,8 @@
 
 import {strEnum} from "../../helpers/str-enum";
 import {AttributeIdConstTypes} from "./system-attributes-store";
+import {AggregateDataStore} from "../aggregate-datastore";
+import {SystemDataStore} from "./system-data-store";
 export const SkillDifficultyConsts = strEnum(["E", "A", "H", "VH"]);
 export type SkillDifficultyConstsTypes = keyof typeof SkillDifficultyConsts;
 
@@ -309,7 +311,8 @@ const SkillDifficultyCost = [1,2,4,8,12,16,20,24,28];
 type SkillsStore = {
     list: SkillListStore;
     getStartingRelativeLevel: (skillDifficulty:string)=>number,
-    getCost: (skillDifficulty:string, relativeLevel: number)=>number
+    getCost: (skillDifficulty:string, relativeLevel: number)=>number,
+    getSkillLevel: (state: AggregateDataStore, skillId:string)=>number
 }
 
 
@@ -321,5 +324,12 @@ export const SystemSkillsStoreInitialState: SkillsStore = {
     getCost: (skillDifficulty:string, relativeLevel: number):number => {
         var normalizedRelativeSkill = relativeLevel-SkillDifficultyStart[skillDifficulty];
         return SkillDifficultyCost[normalizedRelativeSkill];
+    },
+    getSkillLevel: (state: AggregateDataStore, skillId:string):number => {
+        var relativeSkill:number = state.character.skills[skillId].relativeLevel;
+        var attributeId = SystemDataStore.skills.list[skillId].attributeId;
+        var attributeValue:number = state.character.attributes[attributeId].value;
+
+        return attributeValue+relativeSkill;
     }
 }

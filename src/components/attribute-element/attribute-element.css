@@ -1,9 +1,36 @@
+/* styles.css */
 :root {
     --active-color: yellow;
     --inactive-color: white;
 }
 
-/* styles.css */
+/*.squareBrackets {}*/
+
+.squareBrackets:before {
+    content: " ";
+    border-left:3px solid #666;
+    border-top:3px solid #666;
+    border-bottom:3px solid #666;
+    padding: 2px;
+    position: absolute;
+    left:0px;
+    height: 15px;
+
+}
+
+.squareBrackets:after
+{
+    content:" ";
+    border-right:3px solid #666;
+    border-top:3px solid #666;
+    border-bottom:3px solid #666;
+    padding: 2px;
+    position: absolute;
+    left:70px;
+    height: 15px;
+
+}
+
 .attributeElement {
     position: relative;
     padding: 2px;
@@ -73,32 +100,5 @@
     position: absolute;
     left:150px;
     top: 10px;
-
-}
-
-/*.squareBrackets {}*/
-
-.squareBrackets:before {
-    content: " ";
-    border-left:3px solid #666;
-    border-top:3px solid #666;
-    border-bottom:3px solid #666;
-    padding: 2px;
-    position: absolute;
-    left:0px;
-    height: 15px;
-
-}
-
-.squareBrackets:after
-{
-    content:" ";
-    border-right:3px solid #666;
-    border-top:3px solid #666;
-    border-bottom:3px solid #666;
-    padding: 2px;
-    position: absolute;
-    left:70px;
-    height: 15px;
 
 }

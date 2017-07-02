@@ -1,0 +1,73 @@
+:root {
+    --active-color: yellow;
+    --inactive-color: white;
+}
+
+/*.squareBrackets {}*/
+
+.squareBrackets:before {
+    content: " ";
+    border-left:3px solid #666;
+    border-top:3px solid #666;
+    border-bottom:3px solid #666;
+    padding: 2px;
+    position: absolute;
+    left:0px;
+    height: 15px;
+
+}
+
+.squareBrackets:after
+{
+    content:" ";
+    border-right:3px solid #666;
+    border-top:3px solid #666;
+    border-bottom:3px solid #666;
+    padding: 2px;
+    position: absolute;
+    left:70px;
+    height: 15px;
+
+}
+
+
+.skillElement {
+    position: relative;
+    padding: 2px;
+    margin: 5px;
+    width: 210px;
+}
+
+
+
+.skillElement .relativeLevelBox {
+    font-size: 30px;
+    padding: 2px;
+    width: 55px;
+    text-align: left;
+    border: 2px solid;
+    margin-left: 5px;
+    margin-right: 5px;
+    position: absolute;
+    left:60px;
+    top: 0px;
+}
+
+.skillElement .skillLevelBox {
+    font-size: 20px;
+    border-width: 0px;
+    padding: 2px;
+    text-align: center;
+    position: absolute;
+    width: 55px;
+}
+
+
+.skillElement .skillCostBox {
+    font-size: 20px;
+    border-width: 0px;
+    padding: 2px;
+    text-align: center;
+    position: absolute;
+    width: 55px;
+}

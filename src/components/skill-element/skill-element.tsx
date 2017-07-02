@@ -20,7 +20,8 @@ interface ConnectedState {
     relativeLevel: number;
     cost: number;
     attributeId: string,
-    difficulty: string
+    difficulty: string,
+    level: number;
 }
 
 
@@ -31,16 +32,19 @@ interface ConnectedDispatch {
 
 const mapStateToProps = (state: AggregateDataStore, ownProps: SkillElementProps): ConnectedState => {
     let skillId = ownProps.skillId;
+
     let systemSkill = SystemDataStore.skills.list[skillId];
-    let characterSkill = state.character.skills[skillId] || {relativeLevel: 0};
+    let startingLevel = SystemDataStore.skills.getStartingRelativeLevel(systemSkill.difficulty);
+    let characterSkill = state.character.skills[skillId] || {relativeLevel: startingLevel};
 
     return {
         name: systemSkill.name,
-        startingLevel: SystemDataStore.skills.getStartingRelativeLevel(systemSkill.difficulty),
+        startingLevel: startingLevel,
         relativeLevel: characterSkill.relativeLevel,
         cost: SystemDataStore.skills.getCost(systemSkill.difficulty, characterSkill.relativeLevel),
         attributeId: systemSkill.attributeId,
-        difficulty: systemSkill.difficulty
+        difficulty: systemSkill.difficulty,
+        level: SystemDataStore.skills.getSkillLevel(state,skillId)
     };
 }
 
@@ -66,21 +70,35 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
     };
 
     render() {
-        const {name, startingLevel, relativeLevel, cost, attributeId, difficulty} = this.props;
+        const {name, startingLevel, relativeLevel, cost, attributeId, difficulty,level} = this.props;
 
         return (
-            <div>
-                {name}
-                {attributeId}
-                {difficulty}
+            <div className={styles.skillElement}>
 
+
+
+                <label className={styles.skillLevelBox}>
+                    {name}
+                </label>
+                <label className={styles.skillLevelBox}>
+                    {attributeId}
+                </label>
+                <label className={styles.skillLevelBox}>
+                    {difficulty}
+                </label>
                 <input onChange={this._onSkillChange.bind(this)}
                        type="number"
                        value={relativeLevel}
                        min={startingLevel}
-                       max="7"/>
+                       max="7"
+                       className={styles.relativeLevelBox}
+
+                />
 
 
+                <label className={styles.skillLevelBox}>
+                    {level}
+                </label>
                 <label className={styles.skillsCostBox +  " " + styles.squareBrackets}>
                     {cost}
                 </label>;

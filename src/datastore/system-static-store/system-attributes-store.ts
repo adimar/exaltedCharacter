@@ -8,9 +8,9 @@ export type PrimaryAttributeIdConstTypes = keyof typeof PrimaryAttributeIdConsts
 
 type StrengthDataTables = { damage: { [level: number]: { swing: string, thrust: string } } };
 
-export type AttributesStore = { [attributeId: string]: Attribute };
+type AttributesStore = { [attributeId: string]: Attribute };
 
-export type DerivedCalculationFunction = (state: any) => number;
+type DerivedCalculationFunction = (state: any) => number;
 
 type Attribute = {
     name: string;

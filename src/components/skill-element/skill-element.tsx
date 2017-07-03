@@ -76,9 +76,6 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
 
         return (
             <div className={styles.skillElement}>
-
-
-
                 <label className={styles.skillName}>
                     {name}
                 </label>
@@ -93,9 +90,6 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
 
                     />
                 </label>
-
-
-
                 <label className={styles.skillLevel}>
                     {level}
                 </label>
@@ -103,7 +97,6 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
 
                     {cost}
                 </label>
-
             </div>);
 
     }

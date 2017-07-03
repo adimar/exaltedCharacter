@@ -3,7 +3,7 @@ import * as redux from "redux";
 import { connect } from "react-redux";
 import { AttributeElement} from "../attribute-element/attribute-element";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
-
+import * as styles from "./pane-attributes.css";
 export interface AttributePaneProps {}
 
 interface ConnectedState {}
@@ -26,7 +26,7 @@ class _AttributesPane extends React.Component<{} , {}> {
 
     render () {
 
-        return <div>
+        return <div className={styles.attributesPane}>
 
             <AttributeElement attributeId="st"/>
             <AttributeElement attributeId="dx"/>

@@ -1,0 +1,10 @@
+:root {
+    --active-color: yellow;
+    --inactive-color: white;
+}
+
+.skillsPane {
+    background-color: yellowgreen;
+    padding:5px;
+    width: 275px;
+}

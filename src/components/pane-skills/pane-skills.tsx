@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import * as _ from "lodash";
 import {SkillElement} from "../skill-element/skill-element";
+import * as styles from "./pane-skills.css";
+
 export interface SkillsPaneProps {
 }
 
@@ -29,15 +31,13 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
 
     render() {
         const {skillIdsArray} = this.props;
-        let skillsList: any = _.map(skillIdsArray, skillId => {
-                let keyId = "skillElement_" + skillId;
-                return <li key={keyId}><SkillElement skillId={skillId}/></li>
-            }
+        let skillsList: any = _.map(skillIdsArray, skillId =>
+            <SkillElement key={(skillId+"_"+ Math.random()+"_")} skillId={skillId}/>
         );
 
-        return <div>
+        return <div className={styles.skillsPane}>
             Skills:
-            <ul>{skillsList} </ul>
+           {skillsList}
         </div>
     }
 }

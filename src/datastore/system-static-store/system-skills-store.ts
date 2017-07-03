@@ -327,8 +327,17 @@ export const SystemSkillsStoreInitialState: SkillsStore = {
     },
     getSkillLevel: (state: AggregateDataStore, skillId:string):number => {
         var relativeSkill:number = state.character.skills[skillId].relativeLevel;
-        var attributeId = SystemDataStore.skills.list[skillId].attributeId;
-        var attributeValue:number = state.character.attributes[attributeId].value;
+        var systemSkill = SystemDataStore.skills.list[skillId];
+        var attributeId = systemSkill.attributeId;
+        var systemAttribute = SystemDataStore.attributes[attributeId];
+
+        var attributeValue:number;
+        if(systemAttribute.derived) {
+            attributeValue = systemAttribute.derived.value(state);
+        } else {
+            attributeValue  = state.character.attributes[attributeId].value;
+        }
+
 
         return attributeValue+relativeSkill;
     }

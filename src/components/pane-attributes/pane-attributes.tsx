@@ -27,18 +27,26 @@ class _AttributesPane extends React.Component<{} , {}> {
     render () {
 
         return <div className={styles.attributesPane}>
+            <div className={styles.primaryAttributes}>
+                <AttributeElement attributeId="st"/>
+                <AttributeElement attributeId="dx"/>
+                <AttributeElement attributeId="iq"/>
+                <AttributeElement attributeId="ht"/>
+            </div>
+            <div className={styles.derivedAttributes}>
+                <AttributeElement attributeId="hp"/>
+                <AttributeElement attributeId="will"/>
+                <AttributeElement attributeId="per"/>
+                <AttributeElement attributeId="fp"/>
 
-            <AttributeElement attributeId="st"/>
-            <AttributeElement attributeId="dx"/>
-            <AttributeElement attributeId="iq"/>
-            <AttributeElement attributeId="ht"/>
-            <AttributeElement attributeId="hp"/>
-            <AttributeElement attributeId="will"/>
-            <AttributeElement attributeId="per"/>
-            <AttributeElement attributeId="fp"/>
-            <AttributeElement attributeId="strike"/>
-            <AttributeElement attributeId="speed"/>
-            <AttributeElement attributeId="move"/>
+            </div>
+            <div className={styles.derivedAttributes}>
+
+                <AttributeElement attributeId="strike"/>
+                <AttributeElement attributeId="speed"/>
+                <AttributeElement attributeId="move"/>
+
+            </div>
             <AttributeElement attributeId="dodge"/>
             <AttributeElement attributeId="bl"/>
         </div>

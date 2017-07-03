@@ -6,7 +6,7 @@ import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {setDerivedAttribute, setPrimaryAttribute} from "../../actions/attribute-action-factory";
 import * as _ from "lodash";
 
-import * as styles from "./attribute-element.css";
+import * as styles from "./attribute-element2.css";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 
 export interface AttributeElementProps {

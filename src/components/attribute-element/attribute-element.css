@@ -4,7 +4,12 @@
     --inactive-color: white;
 }
 
-/*.squareBrackets {}*/
+.squareBrackets {
+    position: absolute;
+    left:150px;
+    top: 10px;
+
+}
 
 .squareBrackets:before {
     content: " ";
@@ -96,9 +101,3 @@
     /*margin: 0;*/
 }
 
-.squareBrackets {
-    position: absolute;
-    left:150px;
-    top: 10px;
-
-}

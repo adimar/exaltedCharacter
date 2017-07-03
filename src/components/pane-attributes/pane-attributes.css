@@ -1,3 +1,13 @@
 .attributesPane {
+    display: flex;
+    flex-direction: row;
+}
+
+.attributesPane .primaryAttributes {
 
 }
+
+.attributesPane .derivedAttributes {
+
+}
+

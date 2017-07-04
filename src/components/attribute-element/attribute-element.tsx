@@ -6,7 +6,7 @@ import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {setDerivedAttribute, setPrimaryAttribute} from "../../actions/attribute-action-factory";
 import * as _ from "lodash";
 
-import * as styles from "./attribute-element2.css";
+import * as styles from "./attribute-element.css";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 
 export interface AttributeElementProps {
@@ -134,9 +134,9 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
 
         return (
             <div className={styles.attributeElement}>
-                <Textfit className={styles.attributeName} mode="multi">
-                    {name}
-                </Textfit>
+                 <Textfit  className={styles.attributeName} mode="multi">
+                     {name}
+                 </Textfit>
                 {attributeValueElement}
                 {/*<label className={styles.squareBrackets} type="text"></label>*/}
                 {attributeCostElement}

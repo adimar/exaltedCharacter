@@ -100,7 +100,7 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
                 <input className={styles.attributeValueBox + " " + styles.activeAttributeValueBox}
                        onChange={this._onAttributeChange.bind(this)}
                        type="number" value={value}
-                       min="1"
+                       min="6"
                        max="20"/>;
             attributeCostElement =
                 <label className={styles.squareBrackets}>

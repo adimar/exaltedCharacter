@@ -28,25 +28,23 @@
     border-style:solid;
     border-width: 1px;
     border-color: var(--line-color);
+    display: inline-block;
+    text-align:center;
 }
 
 .attributeElement .activeAttributeValueBox {
     background-color: var(--active-color);
-
 }
 
 .attributeElement .inactiveAttributeValueBox {
     background-color: var(--inactive-color);
-
-
-
 }
 
 .attributeElement .attributeCostBox {
     text-align:center;
-    display: inline-flex;
+    display: inline-block;
+    width:40px;
 
-    width:40px
 }
 
 .attributeElement .activeAttributeCostBox {
@@ -58,13 +56,14 @@
 
 .attributeElement .inactiveAttributeCostBox {
     background-color: var(--inactive-color);
-;
+
 }
 
 
-.attributeElement .attributeCostBox::-webkit-inner-spin-button,
-.attributeElement .attributeCostBox::-webkit-outer-spin-button {
-
+.attributeElement ::-webkit-inner-spin-button,
+.attributeElement ::-webkit-outer-spin-button {
+    box-shadow: 0 0 2px #0CF;
+    opacity: .8;
 }
 
 .squareBrackets:before {

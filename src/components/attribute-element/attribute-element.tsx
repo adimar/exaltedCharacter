@@ -103,8 +103,11 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
                        min="1"
                        max="20"/>;
             attributeCostElement =
-                <label
-                    className={styles.attributeCostBox + " " + styles.inactiveAttributeCostBox + " " + styles.squareBrackets}>{cost}</label>;
+                <label className={styles.squareBrackets}>
+                    <label className={styles.attributeCostBox + " " + styles.inactiveAttributeCostBox}>
+                        {cost}
+                    </label>
+                </label>;
         } else if (costPerRaise) {
 
             attributeValueElement =

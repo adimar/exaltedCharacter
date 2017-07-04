@@ -6,12 +6,14 @@
 }
 
 .attributeElement {
+    border-style:solid;
+    border-width: 1px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: baseline;
-    width: 210px;
-    height: 20px;
+    width: 145px;
+    height: 25px;
     margin: 3px;
 }
 
@@ -24,10 +26,11 @@
 
 .attributeElement .attributeValueBox {
     margin-left:3px;
-    text-align: center;
+
     width:45px;
     border-style:solid;
     border-width: 1px;
+    border-color: var(--line-color);
 }
 
 .attributeElement .activeAttributeValueBox {
@@ -37,24 +40,28 @@
 
 .attributeElement .inactiveAttributeValueBox {
     background-color: var(--inactive-color);
-    border-color: var(--line-color);
-    border-width: 1px;
-    border-style: solid;
+
+
 
 }
 
 .attributeElement .attributeCostBox {
-    margin-left:5px;
-    width:45px;
-    text-align: center;
+    text-align:center;
+    display: inline-flex;
+    background-color: mediumpurple;
+    border-style:solid;
+    border-width: 1px;
+    width:40px
 }
 
 .attributeElement .activeAttributeCostBox {
-    background-color: var(--active-color);
+    /*background-color: var(--active-color);*/
+
 }
 
 .attributeElement .inactiveAttributeCostBox {
-    background-color: var(--inactive-color);
+    /*background-color: var(--inactive-color);*/
+;
 }
 
 
@@ -68,7 +75,6 @@
     color: var(--line-color);
     font-size: 20px;
     text-align: right;
-    padding-right: 10px;
 }
 
 .squareBrackets:after
@@ -77,5 +83,4 @@
     color: var(--line-color);
     font-size: 20px;
     text-align: left;
-    padding-left: 10px;
 }

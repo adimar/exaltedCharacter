@@ -3,6 +3,7 @@ import {strEnum} from "../../helpers/str-enum";
 import {AttributeIdConstTypes} from "./system-attributes-store";
 import {AggregateDataStore} from "../aggregate-datastore";
 import {SystemDataStore} from "./system-data-store";
+import {SystemDataAggregators} from "../data-aggregators/system-data-aggregators";
 export const SkillDifficultyConsts = strEnum(["E", "A", "H", "VH"]);
 export type SkillDifficultyConstsTypes = keyof typeof SkillDifficultyConsts;
 
@@ -332,11 +333,7 @@ export const SystemSkillsStoreInitialState: SkillsStore = {
         var systemAttribute = SystemDataStore.attributes[attributeId];
 
         var attributeValue:number;
-        if(systemAttribute.derived) {
-            attributeValue = systemAttribute.derived.value(state);
-        } else {
-            attributeValue  = state.character.attributes[attributeId].value;
-        }
+        attributeValue = SystemDataAggregators.attributes(state, attributeId).value;
 
 
         return attributeValue+relativeSkill;

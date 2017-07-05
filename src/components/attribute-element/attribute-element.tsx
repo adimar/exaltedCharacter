@@ -8,6 +8,7 @@ import * as _ from "lodash";
 
 import * as styles from "./attribute-element.css";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
+import {SystemDataAggregators} from "../../datastore/data-aggregators/system-data-aggregators";
 
 export interface AttributeElementProps {
     attributeId: string;
@@ -24,7 +25,7 @@ interface ConnectedState {
 }
 
 interface ConnectedDispatch {
-    setAttribute: (value: number, props: AttributeElementProps & ConnectedState) => void;
+    setAttribute: (cost: number, props: AttributeElementProps & ConnectedState) => void;
 }
 
 const mapStateToProps = (state: AggregateDataStore, ownProps: AttributeElementProps): ConnectedState => {
@@ -37,20 +38,15 @@ const mapStateToProps = (state: AggregateDataStore, ownProps: AttributeElementPr
     let cost;
     let value;
 
-
-    if (isDerived && costPerRaise) {
+    let attributeAggregator = SystemDataAggregators.attributes(state, attributeId);
+    if (costPerRaise) {
         cost = characterAttribute.cost;
-        value = systemAttribute.derived.value(state);
-
-    } else if (isDerived && !costPerRaise) {
-        cost = null;
-        value = systemAttribute.derived.base(state);
+        value = attributeAggregator.value;
 
     } else {
-        value = characterAttribute.value || systemAttribute.base;
-        cost = (value - systemAttribute.base) * costPerRaise;
+        cost = null;
+        value = attributeAggregator.base;
     }
-
 
     return {
         name: SystemDataStore.attributes[attributeId].name,

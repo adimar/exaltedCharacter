@@ -27,11 +27,7 @@ const mapStateToProps = (state: AggregateDataStore, ownProps: SearchBoxProps): C
 
 const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>): ConnectedDispatch => ({
     getMatches: (pattern: string, props: SearchBoxProps & ConnectedState) => {
-        console.log("SearchBox.getMatches value:" + pattern + ", attribute:" + props.attributeId);
-        if (props.isDerived) {
-            dispatch(setDerivedAttribute(props.attributeId, n));
-        } else {
-            dispatch(setPrimaryAttribute(props.attributeId, n));
-        }
+        //console.log("SearchBox.getMatches value:" + pattern + ", attribute:" + props.attributeId);
+
     }
 });

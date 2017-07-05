@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 import {AttributeElement} from "../attribute-element/attribute-element";
+import {SystemDataAggregators} from "../../datastore/data-aggregators/system-data-aggregators";
+import {AttributeIdConsts} from "../../datastore/system-static-store/system-attributes-store";
 
 
 export interface CalculatedStatsSheetProps {
@@ -26,16 +28,18 @@ interface CalculatedStatsConnectedDispatch {}
 
 const mapStateToPropsCalculatedStats = (state: AggregateDataStore, ownProps: CalculatedStatsSheetProps): CalculatedStatsConnectedState => {
 
-    let stValue = state.character.attributes.st.value;
-    let strikeValue = stValue + state.character.attributes.strike.cost/SystemDataStore.attributes.strike.costPerRaise;
-    let strikeDamage =  SystemDataStore.attributes.st.data.damage[strikeValue];
+
+    let strike = SystemDataAggregators.attributes(state,AttributeIdConsts.strike);
+    let strikeDamage =  SystemDataStore.attributes.st.data.damage[strike.value];
+
+
     let cs :CalculatedStatsConnectedState = {
-        basicLift: SystemDataStore.attributes.bl.derived.base(state),
+        basicLift: SystemDataAggregators.attributes(state,AttributeIdConsts.bl).value,
         damageThr: strikeDamage.thrust,
         damageSw: strikeDamage.swing,
-        basicSpeed:  SystemDataStore.attributes.speed.derived.base(state),
-        basicMove:  SystemDataStore.attributes.move.derived.base(state),
-        dodge:  SystemDataStore.attributes.dodge.derived.base(state)
+        basicSpeed:  SystemDataAggregators.attributes(state,AttributeIdConsts.speed).value,
+        basicMove: SystemDataAggregators.attributes(state,AttributeIdConsts.speed).value,
+        dodge:  SystemDataAggregators.attributes(state,AttributeIdConsts.dodge).value
     };
 
     return cs;

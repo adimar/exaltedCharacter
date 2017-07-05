@@ -101,7 +101,8 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
                        onChange={this._onAttributeChange.bind(this)}
                        type="number" value={value}
                        min="6"
-                       max="20"/>;
+                       max="20"
+                       onKeyPress={(evt)=>evt.preventDefault()}/>;
             attributeCostElement =
                 <label className={styles.squareBrackets}>
                     <label className={styles.attributeCostBox + " " + styles.inactiveAttributeCostBox}>
@@ -123,7 +124,8 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
                         min="-30"
                         max="30"
                         pattern="^-?.{1,2}$"
-                        step={costPerRaise}/>
+                        step={costPerRaise}
+                        onKeyPress={(evt)=>evt.preventDefault()}/>
                 </label>
         } else {
             attributeValueElement =

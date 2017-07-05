@@ -14,8 +14,7 @@ interface ConnectedState {
     skillIdsArray: string[]
 }
 
-interface ConnectedDispatch {
-}
+interface ConnectedDispatch {}
 
 const mapStateToPropsSkillsPane = (state: AggregateDataStore, ownProps: SkillsPaneProps): ConnectedState => {
     return {
@@ -28,7 +27,11 @@ const mapDispatchToPropsSkillsPane = (dispatch: redux.Dispatch<AggregateDataStor
 
 class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & SkillsPaneProps, {}> {
 
+    _onAddSkill = (event: React.ChangeEvent<HTMLButtonElement>) => {
+        let value = Number(event.target.value);
+        let props = this.props;
 
+    };
     render() {
         const {skillIdsArray} = this.props;
         let skillsList: any = _.map(skillIdsArray, skillId =>
@@ -36,7 +39,7 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
         );
 
         return <div className={styles.skillsPane}>
-            Skills:
+            Skills: <input type="text"/>
            {skillsList}
         </div>
     }

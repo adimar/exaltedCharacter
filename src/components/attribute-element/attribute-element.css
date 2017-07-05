@@ -62,7 +62,7 @@
 
 .attributeElement ::-webkit-inner-spin-button,
 .attributeElement ::-webkit-outer-spin-button {
-    box-shadow: 0 0 2px #0CF;
+    box-shadow: 0 0 2px green;
     opacity: .8;
 }
 

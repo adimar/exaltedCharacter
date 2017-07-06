@@ -61,11 +61,7 @@ const mapStateToProps = (state: AggregateDataStore, ownProps: AttributeElementPr
 const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>): ConnectedDispatch => ({
     setAttribute: (n: number, props: AttributeElementProps & ConnectedState) => {
         console.log("AttributeElement.etAttribute value:" + n + ", attribute:" + props.attributeId);
-        if (props.isDerived) {
-            dispatch(setDerivedAttribute(props.attributeId, n));
-        } else {
-            dispatch(setPrimaryAttribute(props.attributeId, n));
-        }
+        dispatch(setDerivedAttribute(props.attributeId, n));
     }
 });
 
@@ -91,22 +87,22 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
         let attributeValueElement: any;
         let attributeCostElement: any;
 
-        if (!isDerived) {
-            attributeValueElement =
-                <input className={styles.attributeValueBox + " " + styles.activeAttributeValueBox}
-                       onChange={this._onAttributeChange.bind(this)}
-                       type="number" value={value}
-                       min="6"
-                       max="20"
-                       onKeyPress={(evt)=>evt.preventDefault()}/>;
-            attributeCostElement =
-                <label className={styles.squareBrackets}>
-                    <label className={styles.attributeCostBox + " " + styles.inactiveAttributeCostBox}>
-                        {cost}
-                    </label>
-                </label>;
-        } else if (costPerRaise) {
-
+        // if (!isDerived) {
+        //     attributeValueElement =
+        //         <input className={styles.attributeValueBox + " " + styles.activeAttributeValueBox}
+        //                onChange={this._onAttributeChange.bind(this)}
+        //                type="number" value={value}
+        //                min="6"
+        //                max="20"
+        //                onKeyPress={(evt)=>evt.preventDefault()}/>;
+        //     attributeCostElement =
+        //         <label className={styles.squareBrackets}>
+        //             <label className={styles.attributeCostBox + " " + styles.inactiveAttributeCostBox}>
+        //                 {cost}
+        //             </label>
+        //         </label>;
+        // } else
+        if (costPerRaise) {
             attributeValueElement =
                 <label className={styles.attributeValueBox + " " + styles.inactiveAttributeValueBox}>{value}</label>;
             attributeCostElement =
@@ -116,10 +112,8 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
                         onChange={this._onAttributeChange.bind(this)}
                         type="number"
                         value={cost}
-                        disabled={!isDerived}
-                        min="-30"
-                        max="30"
-                        pattern="^-?.{1,2}$"
+                        min={-5*costPerRaise}
+                        max={10*costPerRaise}
                         step={costPerRaise}
                         onKeyPress={(evt)=>evt.preventDefault()}/>
                 </label>

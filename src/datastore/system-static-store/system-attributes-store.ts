@@ -48,6 +48,14 @@ const StrengthDataTableInitialState: StrengthDataTables = {
         24: {swing: "4d+2", thrust: "2d+1"},
         25: {swing: "5d-1", thrust: "2d+2"},
         26: {swing: "5d", thrust: "2d+2"},
+        27: {swing: "5d+1", thrust: "3d-1"},
+        28: {swing: "5d+1", thrust: "3d-1"},
+        29: {swing: "5d+2", thrust: "3d"},
+        30: {swing: "5d+2", thrust: "3d"},
+        31: {swing: "6d-1", thrust: "3d+1"},
+        32: {swing: "6d-1", thrust: "3d+1"},
+        33: {swing: "6d", thrust: "3d+2"},
+        34: {swing: "6d", thrust: "3d+2"},
     }
 }
 

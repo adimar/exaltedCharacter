@@ -36,6 +36,11 @@
     background-color: var(--active-color);
 }
 
+.attributeElement .activeAttributeValueBox ::-webkit-inner-spin-button,
+.attributeElement .activeAttributeValueBox ::-webkit-outer-spin-button {
+    position:relative;
+    left: 100px;
+}
 .attributeElement .inactiveAttributeValueBox {
     background-color: var(--inactive-color);
 }

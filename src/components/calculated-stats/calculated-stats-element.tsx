@@ -38,7 +38,7 @@ const mapStateToPropsCalculatedStats = (state: AggregateDataStore, ownProps: Cal
         damageThr: strikeDamage.thrust,
         damageSw: strikeDamage.swing,
         basicSpeed:  SystemDataAggregators.attributes(state,AttributeIdConsts.speed).value,
-        basicMove: SystemDataAggregators.attributes(state,AttributeIdConsts.speed).value,
+        basicMove: SystemDataAggregators.attributes(state,AttributeIdConsts.move).value,
         dodge:  SystemDataAggregators.attributes(state,AttributeIdConsts.dodge).value
     };
 

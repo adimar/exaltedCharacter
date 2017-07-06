@@ -1,8 +1,15 @@
-export type SearchElementValue = {
-    [id:string]:string
+export type SearchIdValuePair = {id:string,value:string};
+
+export type SingleSearchElementData = {
+    pattern?: string,
+    possibleObjectList: SearchIdValuePair[],
+    matches: SearchIdValuePair[]}
+
+export type SearchElementStore = {
+    [searchBoxId:string]: SingleSearchElementData
 }
 
-export type MiscStore = {searchElement: SearchElementValue};
+export type MiscStore = {searchElement: SearchElementStore};
 
 export const MiscStoreInitialState = {
     searchElement: {}

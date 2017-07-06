@@ -6,6 +6,7 @@ import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import * as _ from "lodash";
 import {SkillElement} from "../skill-element/skill-element";
 import * as styles from "./pane-skills.css";
+import {SearchBox} from "../common/search-box";
 
 export interface SkillsPaneProps {
 }
@@ -39,7 +40,7 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
         );
 
         return <div className={styles.skillsPane}>
-            Skills: <input type="text"/>
+            Skills: <SearchBox searchBoxId="skillSearch1" dataPath="skills.list" valueField="name" idField="skillId"/>
            {skillsList}
         </div>
     }

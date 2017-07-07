@@ -3,15 +3,18 @@ import {Provider} from "react-redux"
 import * as Redux from "redux";
 import * as React from "react";
 import thunk from 'redux-thunk';
-
+import devToolsEnhancer from 'remote-redux-devtools';
 import {AggregateReducer} from "./reducers/aggregate-reducer";
 import {AggregateDataStore} from "./datastore/aggregate-datastore";
 
 import {applyMiddleware} from "redux";
 import {GurpsCharacterSheet} from "./gurps-character-sheet";
 
-
-let myStore: Redux.Store<AggregateDataStore> = Redux.createStore(AggregateReducer,applyMiddleware(thunk));
+//
+// process.env.NODE_ENV === 'development';
+// const composeEnhancers = composeWithDevTools({ realtime: true, port: 3000 });
+// let myStore: Redux.Store<AggregateDataStore> = Redux.createStore(AggregateReducer,composeEnhancers(applyMiddleware(thunk)));
+let myStore: Redux.Store<AggregateDataStore> = Redux.createStore(AggregateReducer,applyMiddleware(thunk)); //,
 
 ReactDOM.render(
     <Provider store={myStore}>

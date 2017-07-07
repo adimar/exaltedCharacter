@@ -1,7 +1,34 @@
+:root {
+    --hover-line-color: lightblue;
+    --overflow-text-color: gray;
+}
 
 .searchBox {
+
+}
+
+.searchBox .searchBoxText {
     background-color: lightblue;
     height: 25px;
     width:200px;
     margin: 3px;
 }
+
+.searchBox .searchDropDown {
+    background-color: white;
+    width:220px;
+}
+
+
+.searchBox .searchDropDown .searchDropDownLine {
+
+}
+
+.searchBox .searchDropDown .searchDropDownLine:hover {
+    background-color: var(--hover-line-color);
+}
+
+.searchBox .searchDropDown .searchDropDownOverflow {
+    color:  var(--overflow-text-color);
+}
+

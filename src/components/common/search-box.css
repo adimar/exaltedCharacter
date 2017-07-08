@@ -1,9 +1,11 @@
 :root {
     --hover-line-color: lightblue;
     --overflow-text-color: gray;
+    --border-line-color: black;
 }
 
 .searchBox {
+    position: relative;
 
 }
 
@@ -15,14 +17,20 @@
 }
 
 .searchBox .searchDropDown {
+    position: absolute;
+    z-index: 1;
     background-color: white;
     width:220px;
-}
 
+
+}
 
 .searchBox .searchDropDown .searchDropDownLine {
+    padding-left:5px;
 
 }
+
+
 
 .searchBox .searchDropDown .searchDropDownLine:hover {
     background-color: var(--hover-line-color);

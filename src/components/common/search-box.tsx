@@ -13,6 +13,7 @@ export interface SearchBoxProps {
     valueField: string;
     idField: string;
     itemDisplayCalculator?: (searchItem:any)=>string
+    itemSelectionDispatch: (selectedSearchItem:any)=>void
 }
 
 interface ConnectedState {
@@ -49,7 +50,7 @@ const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>) => ({
 
 class _SearchBox extends React.Component<ConnectedState & ConnectedDispatch & SearchBoxProps, {}> {
     private _scrollBarIndex: number = 0;
-
+    private _dropDownVisible: boolean =  false;
     constructor(props: SearchBoxProps & ConnectedState & ConnectedDispatch) {
         super(props);
         props.registerSearchBox(props);
@@ -69,21 +70,27 @@ class _SearchBox extends React.Component<ConnectedState & ConnectedDispatch & Se
         } else if (event.deltaY < 0 && this._scrollBarIndex > 0) {
             this._scrollBarIndex--;
         }
+        event.preventDefault();
         this.forceUpdate();
     }
 
     _onMouseEnterLeave = (event: React.MouseEvent<HTMLDivElement>) => {
-        console.log(event.target + " " + event.type);
         if (event.type === "mouseleave") {
-
+          this._dropDownVisible = false;
         } else if (event.type === "mouseenter") {
-
+            this._dropDownVisible = true;
         }
         this.forceUpdate();
     }
 
+    _onSelectItem = (event: React.MouseEvent<HTMLDivElement>, selectedItem: any)=> {
+        this.props.itemSelectionDispatch(selectedItem);
+
+    }
+
     render() {
         const {matches,idField,valueField,itemDisplayCalculator} = this.props;
+
         var matchingItemsBase = (this._scrollBarIndex ?
             [<div key="search_start_overflow" className={styles.searchDropDownOverflow}>
                 {this._scrollBarIndex} previous items...</div>] : []);
@@ -93,7 +100,7 @@ class _SearchBox extends React.Component<ConnectedState & ConnectedDispatch & Se
             .reduce((accumulator, matchItem) => {
                 var spanKey = "search_" + matchItem[idField];
                 var  searchItemValue = (itemDisplayCalculator?itemDisplayCalculator(matchItem):matchItem[valueField]);
-                accumulator.push(<div key={spanKey} className={styles.searchDropDownLine}>{searchItemValue}</div>);
+                accumulator.push(<div key={spanKey} className={styles.searchDropDownLine} onClick={(e)=>{this._onSelectItem(e, matchItem)}}>{searchItemValue}</div>);
                 return accumulator;
             }, matchingItemsBase).value();
         let resultDisplayedSizeDiff: number = _.size(matches) - _.size(matchingItems) - this._scrollBarIndex;
@@ -106,7 +113,7 @@ class _SearchBox extends React.Component<ConnectedState & ConnectedDispatch & Se
         return <div className={styles.searchBox} onMouseLeave={this._onMouseEnterLeave.bind(this)}
                     onMouseEnter={this._onMouseEnterLeave.bind(this)}>
             <input className={styles.searchBoxText} type="text" onChange={this._onSearchboxChanged.bind(this)}/>
-            <div className={styles.searchDropDown} onWheel={this._onWheelSearchBox.bind(this)}>{matchingItems}</div>
+            {this._dropDownVisible && <div className={styles.searchDropDown} onWheel={this._onWheelSearchBox.bind(this)} >{matchingItems}</div>}
         </div>;
     }
 }

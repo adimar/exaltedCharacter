@@ -9,6 +9,7 @@ import * as styles from "./pane-skills.css";
 import {SearchBox} from "../common/search-box";
 import {SysSkill} from "../../datastore/system-static-store/system-skills-store";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
+import {addSkill} from "../../actions/skill-action-factory";
 
 export interface SkillsPaneProps {
 }
@@ -17,7 +18,9 @@ interface ConnectedState {
     skillIdsArray: string[]
 }
 
-interface ConnectedDispatch {}
+interface ConnectedDispatch {
+    addSkill: (newSkill: SysSkill) => void;
+}
 
 const mapStateToPropsSkillsPane = (state: AggregateDataStore, ownProps: SkillsPaneProps): ConnectedState => {
     return {
@@ -25,7 +28,13 @@ const mapStateToPropsSkillsPane = (state: AggregateDataStore, ownProps: SkillsPa
     };
 }
 
-const mapDispatchToPropsSkillsPane = (dispatch: redux.Dispatch<AggregateDataStore>): ConnectedDispatch => ({})
+const mapDispatchToPropsSkillsPane = (dispatch: redux.Dispatch<AggregateDataStore>): ConnectedDispatch => ({
+    addSkill: (newSkill: SysSkill) => {
+        console.log("SkillsPaneProps.addSkill:" + newSkill.skillId);
+        dispatch(addSkill(newSkill.skillId));
+    },
+
+})
 
 
 class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & SkillsPaneProps, {}> {
@@ -35,9 +44,9 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
         var skillDiff = skillItem.difficulty;
         return skillItem.name+" ("+attribName+"/"+skillDiff+")";
     }
-    _onAddSkill = (event: React.ChangeEvent<HTMLButtonElement>) => {
-        let value = Number(event.target.value);
-        let props = this.props;
+    _onAddSkill = (selectedSearchItem:SysSkill) => {
+        console.log("Adding "+selectedSearchItem.name+" skill.")
+        this.props.addSkill(selectedSearchItem)
 
     };
     render() {
@@ -48,7 +57,8 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
 
         return <div className={styles.skillsPane}>
             Skills: <SearchBox searchBoxId="skillSearch1" dataPath="skills.list" valueField="name" idField="skillId"
-                               itemDisplayCalculator={this._calculateSkillDisplay}/>
+                               itemDisplayCalculator={this._calculateSkillDisplay.bind(this)}
+                               itemSelectionDispatch={this._onAddSkill.bind(this)}/>
            {skillsList}
         </div>
     }

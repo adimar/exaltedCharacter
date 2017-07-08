@@ -11,6 +11,9 @@ export const SkillsReducer  = (state: AggregateDataStore = AggregateDataStoreIni
         case SkillActionTypesConsts.SET_RELATIVE_SKILL_LEVEL:
             singleSkill[action.skillId] = {relativeLevel: action.relativeLevel};
             return deepAssign({},state,{character:{skills:singleSkill}});
+        case SkillActionTypesConsts.ADD_SKILL:
+            singleSkill[action.skillId] = {relativeLevel: 1};
+            return deepAssign({},state,{character:{skills:singleSkill}});
         default:
             return state;
     }

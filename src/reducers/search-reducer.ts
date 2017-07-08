@@ -25,9 +25,15 @@ export const SearchReducer = (state: AggregateDataStore = AggregateDataStoreInit
 
             return deepAssign({},state, {misc:{searchElement:singleSearchbox}});
         case SearchboxActionTypesConsts.GET_MATHING:
-            var searchBox = state.misc.searchElement[action.searchBoxId];
-            var patternMatches = _.filter(searchBox.possibleObjectList,
+            var patternMatches;
+            if(_.size(action.pattern)>0) {
+                var searchBox = state.misc.searchElement[action.searchBoxId];
+                patternMatches = _.filter(searchBox.possibleObjectList,
                     object=>new RegExp(action.pattern,"i").exec(object[searchBox.valueField]));
+            } else {
+                patternMatches = {};
+            }
+
 
 
             var newState = deepAssign({},state);

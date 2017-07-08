@@ -29,7 +29,7 @@ export const setRelativeSkillLevel  = (skillId:string, relativeLevel: number): S
 
 });
 
-export const addSkillLevel  = (skillId:string): AddSkillAction => ({
+export const addSkill  = (skillId:string): AddSkillAction => ({
     type: SkillActionTypesConsts.ADD_SKILL,
     skillId: skillId
 });

@@ -1,6 +1,8 @@
 
 
-import {AttributeAggregator} from "./attributes-aggregator";
+import {AttributesAggregator} from "./attributes-aggregator";
+import {SkillsAggregator} from "./skills-aggregator";
 export const SystemDataAggregators =  {
-    attributes: AttributeAggregator
+    attributes: AttributesAggregator,
+    skills: SkillsAggregator
 }

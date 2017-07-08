@@ -1,9 +1,6 @@
 
 import {strEnum} from "../../helpers/str-enum";
 import {AttributeIdConstTypes} from "./system-attributes-store";
-import {AggregateDataStore} from "../aggregate-datastore";
-import {SystemDataStore} from "./system-data-store";
-import {SystemDataAggregators} from "../data-aggregators/system-data-aggregators";
 export const SkillDifficultyConsts = strEnum(["E", "A", "H", "VH"]);
 export type SkillDifficultyConstsTypes = keyof typeof SkillDifficultyConsts;
 
@@ -297,43 +294,26 @@ const SystemSkillsListStoreInitialState: SkillListStore = {
     writing:{skillId:"writing", name:"Writing",attributeId:"iq",difficulty:"A"},
     zenArchery:{skillId:"zenArchery", name:"Zen Archery",attributeId:"iq",difficulty:"VH"}
 }
-const SkillDifficultyStart = {
+
+const SkillRelativeStart = {
     "E": 0,
     "A": -1,
     "H": -2,
     "VH": -3
 }
 
-const SkillDifficultyCost = [1,2,4,8,12,16,20,24,28];
+const SkillDifficultyCostProgression = [1,2,4,8,12,16,20,24,28];
 
 
 type SkillsStore = {
     list: SkillListStore;
-    getStartingRelativeLevel: (skillDifficulty:string)=>number,
-    getCost: (skillDifficulty:string, relativeLevel: number)=>number,
-    getSkillLevel: (state: AggregateDataStore, skillId:string)=>number
+    relativeStart: {[difficulty:string]:number};
+    difficultyCostProgression: number[];
 }
 
 
 export const SystemSkillsStoreInitialState: SkillsStore = {
     list: SystemSkillsListStoreInitialState,
-    getStartingRelativeLevel: (skillDifficulty:string):number =>{
-        return SkillDifficultyStart[skillDifficulty]
-    },
-    getCost: (skillDifficulty:string, relativeLevel: number):number => {
-        var normalizedRelativeSkill = relativeLevel-SkillDifficultyStart[skillDifficulty];
-        return SkillDifficultyCost[normalizedRelativeSkill];
-    },
-    getSkillLevel: (state: AggregateDataStore, skillId:string):number => {
-        var relativeSkill:number = state.character.skills[skillId].relativeLevel;
-        var systemSkill = SystemDataStore.skills.list[skillId];
-        var attributeId = systemSkill.attributeId;
-        var systemAttribute = SystemDataStore.attributes[attributeId];
-
-        var attributeValue:number;
-        attributeValue = SystemDataAggregators.attributes(state, attributeId).value;
-
-
-        return attributeValue+relativeSkill;
-    }
+    relativeStart: SkillRelativeStart,
+    difficultyCostProgression: SkillDifficultyCostProgression
 }

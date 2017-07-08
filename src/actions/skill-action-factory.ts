@@ -2,17 +2,17 @@ import {strEnum} from "../helpers/str-enum";
 import {Action} from "redux";
 
 export const SkillActionTypesConsts = strEnum([
-    "SET_RELATIVE_SKILL_LEVEL",
+    "SET_SKILL_COST",
     "ADD_SKILL"
 ]);
 
 
-export type SkillAction =  SetRelativeSkillLevelAction | AddSkillAction ;
+export type SkillAction =  SetSkillCostAction | AddSkillAction ;
 
-export interface SetRelativeSkillLevelAction extends Action {
-    type: "SET_RELATIVE_SKILL_LEVEL",
+export interface SetSkillCostAction extends Action {
+    type: "SET_SKILL_COST",
     skillId: string,
-    relativeLevel: number
+    skillCost: number
 };
 
 
@@ -22,10 +22,10 @@ export interface AddSkillAction extends Action {
 };
 
 
-export const setRelativeSkillLevel  = (skillId:string, relativeLevel: number): SetRelativeSkillLevelAction => ({
-    type: SkillActionTypesConsts.SET_RELATIVE_SKILL_LEVEL,
+export const setSkillCost  = (skillId:string, skillCost: number): SetSkillCostAction => ({
+    type: SkillActionTypesConsts.SET_SKILL_COST,
     skillId: skillId,
-    relativeLevel: relativeLevel
+    skillCost: skillCost
 
 });
 

@@ -6,7 +6,8 @@ import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 
 import * as styles from "./skill-element.css";
-import {setRelativeSkillLevel} from "../../actions/skill-action-factory";
+import {setSkillCost} from "../../actions/skill-action-factory";
+import {SystemDataAggregators} from "../../datastore/data-aggregators/system-data-aggregators";
 
 
 export interface SkillElementProps {
@@ -16,18 +17,17 @@ export interface SkillElementProps {
 
 interface ConnectedState {
     name: string;
-    startingLevel: number;
-    relativeLevel: number;
-    cost: number;
     attributeId: string,
     attributeName: string,
     difficulty: string,
-    level: number;
+    cost: number;
+    relativeLevel: number;
+    skillLevel: number;
 }
 
 
 interface ConnectedDispatch {
-    setRelativeLevel: (relativeLevel: number, props: SkillElementProps & ConnectedState) => void;
+    setSkillCost: (skillCost: number, props: SkillElementProps & ConnectedState) => void;
 }
 
 
@@ -35,26 +35,25 @@ const mapStateToProps = (state: AggregateDataStore, ownProps: SkillElementProps)
     let skillId = ownProps.skillId;
 
     let systemSkill = SystemDataStore.skills.list[skillId];
-    let startingLevel = SystemDataStore.skills.getStartingRelativeLevel(systemSkill.difficulty);
-    let characterSkill = state.character.skills[skillId] || {relativeLevel: startingLevel};
+    let aggregatedSkill = SystemDataAggregators.skills(state,skillId);
+    let characterSkill = state.character.skills[skillId];
 
     return {
         name: systemSkill.name,
-        startingLevel: startingLevel,
-        relativeLevel: characterSkill.relativeLevel,
-        cost: SystemDataStore.skills.getCost(systemSkill.difficulty, characterSkill.relativeLevel),
+        relativeLevel: aggregatedSkill.relativeLevel,
+        cost: characterSkill.skillCost,
         attributeId: systemSkill.attributeId,
         attributeName: SystemDataStore.attributes[systemSkill.attributeId].name,
         difficulty: systemSkill.difficulty,
-        level: SystemDataStore.skills.getSkillLevel(state,skillId)
+        skillLevel: aggregatedSkill.skillLevel
     };
 }
 
 
 const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>): ConnectedDispatch => ({
-    setRelativeLevel: (relativeLevel: number, props: SkillElementProps & ConnectedState) => {
-        console.log("SkillElement.setRelativeLevel value:" + relativeLevel + ", attribute:" + props.skillId);
-        dispatch(setRelativeSkillLevel(props.skillId, relativeLevel));
+    setSkillCost: (skillCost: number, props: SkillElementProps & ConnectedState) => {
+        console.log("SkillElement.setSkillCost value:" + skillCost + ", attribute:" + props.skillId);
+        dispatch(setSkillCost(props.skillId, skillCost));
     }
 });
 
@@ -68,11 +67,11 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
     _onSkillChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         let value = Number(event.target.value);
         let props = this.props;
-        props.setRelativeLevel(value, props)
+        props.setSkillCost(value, props)
     };
 
     render() {
-        const {name, startingLevel, relativeLevel, cost, attributeId,attributeName, difficulty,level} = this.props;
+        const {name, skillLevel, relativeLevel, cost,attributeName, difficulty} = this.props;
 
         return (
             <div className={styles.skillElement}>
@@ -81,17 +80,18 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
                 </label>
                 <label className={styles.skillAttribute}>
                     {attributeName}/{difficulty}
-                    <input onChange={this._onSkillChange.bind(this)}
-                           type="number"
-                           value={relativeLevel}
-                           min={startingLevel}
-                           max="6"
-                           className={styles.relativeLevelBox}
+                    {/*<input onChange={this._onSkillChange.bind(this)}*/}
+                           {/*type="number"*/}
+                           {/*value={relativeLevel}*/}
+                           {/*min={startingLevel}*/}
+                           {/*max="6"*/}
+                           {/*className={styles.relativeLevelBox}*/}
 
-                    />
+                    {/*/>*/}
                 </label>
+                <label className={styles.relativeLevelBox}>{relativeLevel}</label>
                 <label className={styles.skillLevel}>
-                    {level}
+                    {skillLevel}
                 </label>
                 <label className={styles.skillsCost +  " " + styles.squareBrackets}>
 

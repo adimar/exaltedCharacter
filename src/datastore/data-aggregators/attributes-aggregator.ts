@@ -15,7 +15,7 @@ const getPrimaryAttributeValue = (state,base, attributeId: string):number => {
 }
 
 
-export const AttributeAggregator = (state:AggregateDataStore, attributeId:string):AggregatedAttribute=>{
+export const AttributesAggregator = (state:AggregateDataStore, attributeId:string):AggregatedAttribute=>{
 
     var racialAttributeModifier = SystemDataStore.race[state.character.race.id].attributeModifiers[attributeId] || 0;
     var systemAttribute  = SystemDataStore.attributes[attributeId];
@@ -24,13 +24,13 @@ export const AttributeAggregator = (state:AggregateDataStore, attributeId:string
         base = systemAttribute.base + racialAttributeModifier ;
 
     } else  if(systemAttribute.derived){
-        base = AttributeAggregator(state,systemAttribute.derived).value;
+        base = AttributesAggregator(state,systemAttribute.derived).value;
     }
     else {
         base = calculateCustomBase(state,attributeId);
     }
 
-    var value = systemAttribute.costPerRaise?getPrimaryAttributeValue(state,base,attributeId):base;
+    var value = SystemDataStore.attributes.costPerRaise?getPrimaryAttributeValue(state,base,attributeId):base;
     return {base: base, value: value};
 
 }
@@ -39,14 +39,14 @@ const calculateCustomBase = (state:AggregateDataStore, attributeId:string):numbe
     switch(attributeId) {
         case "speed":
             return (
-                AttributeAggregator(state,AttributeIdConsts.dx).value +
-                AttributeAggregator(state,AttributeIdConsts.ht).value)/4;
+                AttributesAggregator(state,AttributeIdConsts.dx).value +
+                AttributesAggregator(state,AttributeIdConsts.ht).value)/4;
         case "move":
-            return Math.floor(AttributeAggregator(state,AttributeIdConsts.speed).value);
+            return Math.floor(AttributesAggregator(state,AttributeIdConsts.speed).value);
         case "dodge":
-            return Math.floor(AttributeAggregator(state,AttributeIdConsts.speed).value)+3;
+            return Math.floor(AttributesAggregator(state,AttributeIdConsts.speed).value)+3;
         case "bl":
-            return Math.pow(AttributeAggregator(state,AttributeIdConsts.st).value,2)/5;
+            return Math.pow(AttributesAggregator(state,AttributeIdConsts.st).value,2)/5;
         default:
             return 0;
     }

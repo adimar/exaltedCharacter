@@ -1,11 +1,11 @@
 import {SystemDataStore} from "../system-static-store/system-data-store";
 
-export type Skill = {
+export type CharSkill = {
     relativeLevel: number
 }
 
 
-export type SkillsStore = {[skillId:string]: Skill};
+export type SkillsStore = {[skillId:string]: CharSkill};
 
 export const CharacterSkillsStoreInitialState = {
     knife:{relativeLevel:0},

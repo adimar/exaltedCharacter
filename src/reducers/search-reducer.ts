@@ -11,20 +11,23 @@ export const SearchReducer = (state: AggregateDataStore = AggregateDataStoreInit
         case SearchboxActionTypesConsts.REGISTER_SEARCHBOX:
 
             var dataStoreNode = _.get(SystemDataStore,action.dataPath);
-            var possibleObjectList = [];
-            _.forEach(dataStoreNode,(dataNode)=>{
-                possibleObjectList.push({id:dataNode[action.idField],value:dataNode[action.valueField]});
-             });
+            var possibleObjectList = _.reduce(_.values(dataStoreNode),(accumulator, dataNode)=>{
+                accumulator[dataNode[action.idField]]=dataNode;
+                return accumulator;
+             },{});
 
             singleSearchbox[action.searchBoxId] = {
                 possibleObjectList: possibleObjectList,
-                matches: []
+                matches: {},
+                valueField: action.valueField,
+                idField:action.idField
             };
 
             return deepAssign({},state, {misc:{searchElement:singleSearchbox}});
         case SearchboxActionTypesConsts.GET_MATHING:
-            var patternMatches = _.filter(state.misc.searchElement[action.searchBoxId].possibleObjectList,
-                    object=>new RegExp(action.pattern,"i").exec(object.value));
+            var searchBox = state.misc.searchElement[action.searchBoxId];
+            var patternMatches = _.filter(searchBox.possibleObjectList,
+                    object=>new RegExp(action.pattern,"i").exec(object[searchBox.valueField]));
 
 
             var newState = deepAssign({},state);

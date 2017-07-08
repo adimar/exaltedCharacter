@@ -9,14 +9,14 @@ export type SkillDifficultyConstsTypes = keyof typeof SkillDifficultyConsts;
 
 
 
-type Skill = {
+export type SysSkill = {
     skillId:string;
     name: string;
     attributeId: AttributeIdConstTypes;
     difficulty: SkillDifficultyConstsTypes
 }
 
-type SkillListStore = { [skillId: string]: Skill };
+type SkillListStore = { [skillId: string]: SysSkill };
 
 
 const SystemSkillsListStoreInitialState: SkillListStore = {

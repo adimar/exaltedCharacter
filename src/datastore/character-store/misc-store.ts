@@ -1,9 +1,13 @@
-export type SearchIdValuePair = {id:string,value:string};
+
 
 export type SingleSearchElementData = {
+    idField:string,
+    valueField:string,
     pattern?: string,
-    possibleObjectList: SearchIdValuePair[],
-    matches: SearchIdValuePair[]}
+    possibleObjectList: {[id:string]:any},
+    matches: {[id:string]:any,
+    }
+}
 
 export type SearchElementStore = {
     [searchBoxId:string]: SingleSearchElementData

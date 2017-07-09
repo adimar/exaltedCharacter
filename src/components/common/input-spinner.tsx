@@ -25,12 +25,12 @@ class _InputSpinner extends React.Component<SpinnerProps,{}> {
     render() {
         const {value,className} = this.props;
         let spinnerStyleMix = styles.inputSpinner +" "+className||"";
-        return <span className={spinnerStyleMix}>
+        return <span className={spinnerStyleMix} tabIndex={-1}>
             <label className={styles.inputSpinnerValue}>{value}</label>
-            <label className={styles.spinner}>
-                <label className={styles.spinArrow} onClick={this._onClickUp.bind(this)}>&#9650;</label>
-                <label className={styles.spinArrowDivider}/>
-                <label className={styles.spinArrow} onClick={this._onClickDown.bind(this)}>&#9660;</label>
+            <label className={styles.spinner} tabIndex={-1}>
+                <label className={styles.spinArrow} onClick={this._onClickUp.bind(this)} tabIndex={-1}>&#9650;</label>
+                <label className={styles.spinArrowDivider} tabIndex={-1}/>
+                <label className={styles.spinArrow} onClick={this._onClickDown.bind(this)} tabIndex={-1}>&#9660;</label>
             </label>
         </span>;
     }

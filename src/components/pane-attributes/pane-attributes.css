@@ -1,13 +1,11 @@
 .attributesPane {
     display: flex;
     flex-direction: row;
+    display:inline-block;
 }
 
-.attributesPane .primaryAttributes {
-
-}
-
-.attributesPane .derivedAttributes {
-
+.attributesPane .Attributes {
+    display:inline-block;
+    vertical-align: top;
 }
 

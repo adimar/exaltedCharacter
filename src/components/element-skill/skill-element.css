@@ -1,0 +1,86 @@
+:root {
+    --active-color: yellow;
+    --inactive-color: white;
+    --line-color: black;
+    --odd-color: lightGrey;
+    --even-color: white;
+}
+
+
+.skillElement {
+    padding-bottom: 1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 20px;
+    width: 270px;
+}
+
+.skillElement:nth-child(even){
+    background-color: var(--even-color);
+}
+
+.skillElement:nth-child(odd) {
+    background-color: var(--odd-color);
+}
+
+.skillElement .skillName {
+    flex-grow: 1;
+    padding-left: 2px;
+
+}
+
+
+.skillElement .skillAttribute {
+
+}
+
+.skillElement .relativeLevelBox {
+    width: 18px;
+    display: inline-block;
+    text-align:right;
+    padding-right:2px;
+}
+
+.skillElement .skillLevel {
+    font-size: 18px;
+    width: 25px;
+
+    display: inline-block;
+    text-align:right;
+    padding-right:5px;
+
+}
+
+.skillElement .skillsCost {
+    font-size: 15px;
+    text-align:center;
+    vertical-align: middle;
+    display: inline-block;
+    width: 55px;
+    align-self: flex-end;
+}
+
+.skillElement .skillsCost .skillsInputSpinner {
+    font-size: 15px;
+    text-align:center;
+    vertical-align: middle;
+    display: inline-block;
+    width: 35px;
+    align-self: flex-end;
+}
+
+.squareBrackets:before {
+    content: '[';
+    color: var(--line-color);
+    font-size: 20px;
+    text-align: right;
+}
+
+.squareBrackets:after
+{
+    content: ']';
+    color: var(--line-color);
+    font-size: 20px;
+    text-align: left;
+}

@@ -9,6 +9,7 @@ import * as _ from "lodash";
 import * as styles from "./attribute-element.css";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 import {SystemDataAggregators} from "../../datastore/data-aggregators/system-data-aggregators";
+import {InputSpinner} from "../common/input-spinner";
 
 export interface AttributeElementProps {
     attributeId: string;
@@ -72,51 +73,45 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
 
     }
 
-
-    _onAttributeChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        let value = Number(event.target.value);
+    _onAttributeUp = (originalValue:number):void =>{
         let props = this.props;
-        props.setAttribute(value, props);
-    };
+        let nextStepCost = props.costPerRaise||0*props.raiseStep||1;
+        if(originalValue+ nextStepCost <= 10*props.costPerRaise) {
+            this.props.setAttribute(originalValue+nextStepCost,props);
+        }
+    }
+
+    _onAttributeDown = (originalValue:number):void =>{
+        let props = this.props;
+        let nextStepCost = props.costPerRaise||0*props.raiseStep||1;
+        if(originalValue-nextStepCost >= -5*props.costPerRaise) {
+            this.props.setAttribute(originalValue-nextStepCost,props);
+        }
+    }
 
 
     render() {
-        const {name, value, cost, attributeId, isDerived, costPerRaise, raiseStep} = this.props;
+        const {name, value, cost, costPerRaise} = this.props;
 
 
-        let attributeValueElement: any;
-        let attributeCostElement: any;
+
+        let attributeCostElement: any = "";
 
         if (costPerRaise) {
-            attributeValueElement =
-                <label className={styles.attributeValueBox}>{value}</label>;
             attributeCostElement =
                 <label className={styles.squareBrackets}>
-                    <input
-                        className={styles.attributeCostBox}
-                        onChange={this._onAttributeChange.bind(this)}
-                        type="number"
-                        value={cost}
-                        min={-5*costPerRaise}
-                        max={10*costPerRaise}
-                        step={costPerRaise}
-
-                        onKeyPress={(evt)=>evt.preventDefault()}/>
+                        <InputSpinner value={cost}
+                                  className={styles.attributesInputSpinner }
+                                  clickUpCall={this._onAttributeUp.bind(this)}
+                                  clickDownCall={this._onAttributeDown.bind(this)}/>
                 </label>
-        } else {
-            attributeValueElement =
-                <label className={styles.attributeValueBox}>{value}</label>;
-            attributeCostElement = "";
         }
-
-
         return (
             <div className={styles.attributeElement}>
                  <Textfit  className={styles.attributeName} mode="multi">
                      {name}
                  </Textfit>
-                {attributeValueElement}
-                {/*<label className={styles.squareBrackets} type="text"></label>*/}
+                <label className={styles.attributeValueBox}>{value}</label>
                 {attributeCostElement}
             </div>);
 

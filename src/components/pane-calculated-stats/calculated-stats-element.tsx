@@ -5,7 +5,7 @@ import * as redux from "redux";
 import { connect } from "react-redux";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
-import {AttributeElement} from "../attribute-element/attribute-element";
+import {AttributeElement} from "../element-attribute/attribute-element";
 import {SystemDataAggregators} from "../../datastore/data-aggregators/system-data-aggregators";
 import {AttributeIdConsts} from "../../datastore/system-static-store/system-attributes-store";
 
@@ -58,11 +58,12 @@ class _CalculatedStats extends React.Component<CalculatedStatsConnectedState & C
     render () {
         const {basicLift, damageThr, damageSw, basicSpeed, basicMove,dodge} = this.props;
 
-        return <div>
+        return <fieldset>
+            <legend>Derived</legend>
             Damage Thrust: {damageThr} Swing: {damageSw} <br/>
             Basic Lift (ST x ST)/5: {basicLift} <br/>
             Dode: {dodge}
-        </div>
+        </fieldset>
     }
 }
 

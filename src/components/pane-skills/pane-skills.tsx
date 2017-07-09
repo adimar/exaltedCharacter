@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import * as _ from "lodash";
-import {SkillElement} from "../skill-element/skill-element";
+import {SkillElement} from "../element-skill/skill-element";
 import * as styles from "./pane-skills.css";
 import {SearchBox} from "../common/search-box";
 import {SysSkill} from "../../datastore/system-static-store/system-skills-store";
@@ -56,13 +56,14 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
             <SkillElement key={(skillId+"_"+ Math.random()+"_")} skillId={skillId} />
         );
 
-        return <div className={styles.skillsPane}>
-            Skills: <SearchBox searchBoxId="skillSearch1" dataPath="skills.list" valueField="name" idField="skillId"
+        return <fieldset className={styles.skillsPane}>
+            <legend>Skills</legend>
+             <SearchBox searchBoxId="skillSearch1" dataPath="skills.list" valueField="name" idField="skillId"
                                itemDisplayCalculator={this._calculateSkillDisplay.bind(this)}
                                itemSelectionDispatch={this._onAddSkill.bind(this)}/>
-           {skillsList}
+            <div className={styles.skillsList}>{skillsList}</div>
 
-        </div>
+        </fieldset>
     }
 }
 

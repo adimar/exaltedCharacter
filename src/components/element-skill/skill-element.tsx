@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import * as _ from "lodash";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
-
+import {Textfit} from 'react-textfit';
 import * as styles from "./skill-element.css";
 import {setSkillCost} from "../../actions/skill-action-factory";
 import {SystemDataAggregators} from "../../datastore/data-aggregators/system-data-aggregators";
@@ -83,37 +83,26 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
         }
     }
 
-    // _onSkillChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    //     let value = Number(event.target.value);
-    //     let props = this.props;
-    //     props.setSkillCost(value, props)
-    // };
-
     render() {
         const {name, skillLevel, relativeLevel, cost,attributeName, difficulty} = this.props;
-
+        let customRelativeLevel = (relativeLevel<0?"  "+relativeLevel:"+"+relativeLevel);
         return (
             <div className={styles.skillElement}>
-                <label className={styles.skillName}>
+                <Textfit  className={styles.skillName} mode="multi">
                     {name}
-                </label>
+                </Textfit>
+
                 <label className={styles.skillAttribute}>
                     {attributeName}/{difficulty}
 
                 </label>
-                <label className={styles.relativeLevelBox}>{relativeLevel}</label>
+                <label className={styles.relativeLevelBox}>{customRelativeLevel}</label>
                 <label className={styles.skillLevel}>
                     {skillLevel}
                 </label>
                 <label className={styles.skillsCost +  " " + styles.squareBrackets}>
-                    {/*<input onChange={this._onSkillChange.bind(this)}*/}
-                        {/*type="number"*/}
-                        {/*value={cost} min="1" max="6"*/}
-                        {/*onKeyPress={(evt)=>evt.preventDefault()}*/}
-                        {/*className={styles.relativeLevelBox}*/}
-                    {/*/>*/}
                     <InputSpinner value={cost}
-                                  className={styles.relativeLevelBox}
+                                  className={styles.skillsInputSpinner }
                                   clickUpCall={this._onSkillUp.bind(this)}
                                   clickDownCall={this._onSkillDown.bind(this)}/>
                 </label>

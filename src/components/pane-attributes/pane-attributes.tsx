@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as redux from "redux";
 import { connect } from "react-redux";
-import { AttributeElement} from "../attribute-element/attribute-element";
+import { AttributeElement} from "../element-attribute/attribute-element";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import * as styles from "./pane-attributes.css";
 export interface AttributePaneProps {}
@@ -26,30 +26,26 @@ class _AttributesPane extends React.Component<{} , {}> {
 
     render () {
 
-        return <div className={styles.attributesPane}>
-            <div className={styles.primaryAttributes}>
+        return <fieldset className={styles.attributesPane}>
+            <legend>Attributes</legend>
+            <div className={styles.Attributes}>
                 <AttributeElement attributeId="st"/>
                 <AttributeElement attributeId="dx"/>
                 <AttributeElement attributeId="iq"/>
                 <AttributeElement attributeId="ht"/>
             </div>
-            <div className={styles.derivedAttributes}>
+            <div className={styles.Attributes}>
                 <AttributeElement attributeId="hp"/>
                 <AttributeElement attributeId="will"/>
                 <AttributeElement attributeId="per"/>
                 <AttributeElement attributeId="fp"/>
-
             </div>
-            <div className={styles.derivedAttributes}>
-
+            <div className={styles.Attributes}>
                 <AttributeElement attributeId="strike"/>
                 <AttributeElement attributeId="speed"/>
                 <AttributeElement attributeId="move"/>
-
             </div>
-            <AttributeElement attributeId="dodge"/>
-            <AttributeElement attributeId="bl"/>
-        </div>
+        </fieldset>
     }
 }
 

@@ -77,7 +77,7 @@ class _SearchBox extends React.Component<ConnectedState & ConnectedDispatch & Se
     _onMouseEnterLeave = (event: React.MouseEvent<HTMLDivElement>) => {
         if (event.type === "mouseleave") {
           this._dropDownVisible = false;
-        } else if (event.type === "mouseenter") {
+        } else if (event.type === "mouseenter" ) {
             this._dropDownVisible = true;
         }
         this.forceUpdate();

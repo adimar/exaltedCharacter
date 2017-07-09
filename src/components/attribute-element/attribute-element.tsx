@@ -100,6 +100,7 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
                         min={-5*costPerRaise}
                         max={10*costPerRaise}
                         step={costPerRaise}
+
                         onKeyPress={(evt)=>evt.preventDefault()}/>
                 </label>
         } else {

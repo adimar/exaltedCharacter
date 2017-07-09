@@ -1,0 +1,55 @@
+:root {
+    --value-color: yellow;
+    --spinner-color: lightgray;
+    --spinner-color-hover: gray ;
+    --spinner-divider-color:dimgray;
+    --line-color: black;
+}
+
+.inputSpinner {
+    display: inline-block;
+    background-color: var(--value-color);
+    padding-right: 1px;
+}
+
+
+.inputSpinner .inputSpinnerValue {
+    text-align:center;
+    vertical-align: middle;
+    display: inline-block;
+
+    padding-left:5px;
+    padding-right:5px;
+}
+
+
+.inputSpinner .spinner {
+    vertical-align: middle;
+    float: right;
+    display: inline-block;
+    border-color: var(--line-color);
+    border-style: solid;
+    border-width: 1px;
+
+}
+
+.inputSpinner .spinner .spinArrow {
+    vertical-align: middle;
+    font-size: 40%;
+    background-color: var(--spinner-color);
+    display: block;
+
+}
+
+.inputSpinner .spinner .spinArrowDivider {
+    content: "";
+
+    height:1px;
+    display: block;
+    background-color: var(--spinner-divider-color);
+
+}
+
+.inputSpinner .spinner .spinArrow:hover {
+    background-color: var(--spinner-color-hover);
+}

@@ -10,6 +10,7 @@ import {SearchBox} from "../common/search-box";
 import {SysSkill} from "../../datastore/system-static-store/system-skills-store";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 import {addSkill} from "../../actions/skill-action-factory";
+import {InputSpinner} from "../common/input-spinner";
 
 export interface SkillsPaneProps {
 }
@@ -60,6 +61,7 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
                                itemDisplayCalculator={this._calculateSkillDisplay.bind(this)}
                                itemSelectionDispatch={this._onAddSkill.bind(this)}/>
            {skillsList}
+
         </div>
     }
 }

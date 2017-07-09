@@ -10,8 +10,8 @@ export interface  AggregatedAttribute {
 
 
 const getPrimaryAttributeValue = (state,base, attributeId: string):number => {
-    return base + (state.character.attributes[attributeId].cost /
-        SystemDataStore.attributes[attributeId].costPerRaise)*(SystemDataStore.attributes[attributeId].raiseStep||1);
+    var raiseStep = (SystemDataStore.attributes[attributeId].raiseStep||1);
+    return base + (state.character.attributes[attributeId].cost / SystemDataStore.attributes[attributeId].costPerRaise)*raiseStep;
 }
 
 
@@ -30,7 +30,7 @@ export const AttributesAggregator = (state:AggregateDataStore, attributeId:strin
         base = calculateCustomBase(state,attributeId);
     }
 
-    var value = SystemDataStore.attributes.costPerRaise?getPrimaryAttributeValue(state,base,attributeId):base;
+    var value = systemAttribute.costPerRaise?getPrimaryAttributeValue(state,base,attributeId):base;
     return {base: base, value: value};
 
 }

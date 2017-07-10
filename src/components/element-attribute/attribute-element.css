@@ -20,6 +20,7 @@
 
 .attributeElement .attributeName {
     margin-left:3px;
+    flex-grow: 1;
     width: 35px;
 }
 
@@ -31,25 +32,28 @@
     border-color: var(--line-color);
     display: inline-block;
     text-align:center;
+    align-self: flex-end;
 }
 
 
-.attributeElement .attributeCostBox {
+.attributeElement .attributeCost {
     text-align:center;
     vertical-align: middle;
     display: inline-block;
-    width:40px;
-    font-size:var(--font-size-1);
-    background-color: var(--active-color);
-    border-width: 0px;
-
+    width: 70px;
+    align-self: flex-end;
+    /*background-color: mediumpurple;*/
 }
 
 
-.attributeElement ::-webkit-inner-spin-button,
-.attributeElement ::-webkit-outer-spin-button {
-    box-shadow: 0 0 2px green;
-    opacity: .8;
+.attributeElement .attributeCost .attributeInputSpinner {
+    font-size: 15px;
+    text-align:center;
+    vertical-align: middle;
+
+    align-self: flex-end;
+    width: 47px;
+    /*background-color: orchid;*/
 }
 
 .squareBrackets:before {

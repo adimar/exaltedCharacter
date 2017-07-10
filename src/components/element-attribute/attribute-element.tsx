@@ -99,9 +99,9 @@ class _AttributeElement extends React.Component<ConnectedState & ConnectedDispat
 
         if (costPerRaise) {
             attributeCostElement =
-                <label className={styles.squareBrackets}>
+                <label className={styles.attributeCost +" "+styles.squareBrackets}>
                         <InputSpinner value={cost}
-                                  className={styles.attributesInputSpinner }
+                                  className={styles.attributeInputSpinner }
                                   clickUpCall={this._onAttributeUp.bind(this)}
                                   clickDownCall={this._onAttributeDown.bind(this)}/>
                 </label>

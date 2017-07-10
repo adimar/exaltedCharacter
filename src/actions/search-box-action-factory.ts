@@ -4,7 +4,8 @@ import {Action} from "redux";
 
 export const SearchboxActionTypesConsts = strEnum([
     "GET_MATHING",
-    "REGISTER_SEARCHBOX"
+    "REGISTER_SEARCHBOX",
+    "CLEAR_SEARCHBOX"
 ]);
 
 export type SearchAction =  GetMatchingAction | RegisterSearchBoxAction;
@@ -13,6 +14,7 @@ export interface GetMatchingAction extends Action   {
     type: "GET_MATHING",
     searchBoxId:string,
     pattern: string
+
 };
 
 
@@ -23,14 +25,16 @@ export interface RegisterSearchBoxAction extends Action   {
     dataPath: string,
     valueField: string
     idField: string;
+    excludePath?:string;
 };
 
-export const registerSearchBox  = (searchBoxId:string, dataPath:string, valueField:string, idField:string): RegisterSearchBoxAction => ({
+export const registerSearchBox  = (searchBoxId:string, dataPath:string, valueField:string, idField:string,excludePath?:string): RegisterSearchBoxAction => ({
     type: SearchboxActionTypesConsts.REGISTER_SEARCHBOX,
     searchBoxId:searchBoxId,
     dataPath: dataPath,
     valueField: valueField,
-    idField: idField
+    idField: idField,
+    excludePath:excludePath
 });
 
 export const getMatching  = (searchBoxId:string, pattern:string): GetMatchingAction => ({

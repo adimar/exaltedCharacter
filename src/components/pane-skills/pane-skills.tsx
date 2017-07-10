@@ -58,9 +58,9 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
 
         return <fieldset className={styles.skillsPane}>
             <legend>Skills</legend>
-             <SearchBox searchBoxId="skillSearch1" dataPath="skills.list" valueField="name" idField="skillId"
-                               itemDisplayCalculator={this._calculateSkillDisplay.bind(this)}
-                               itemSelectionDispatch={this._onAddSkill.bind(this)}/>
+             <SearchBox searchBoxId="skillSearch1" dataPath="skills.list" valueField="name" idField="skillId" excludePath="character.skills"
+                        itemDisplayCalculator={this._calculateSkillDisplay.bind(this)}
+                        itemSelectionDispatch={this._onAddSkill.bind(this)}/>
             <div className={styles.skillsList}>{skillsList}</div>
 
         </fieldset>

@@ -5,8 +5,8 @@ export type SingleSearchElementData = {
     valueField:string,
     pattern?: string,
     possibleObjectList: {[id:string]:any},
-    matches: {[id:string]:any,
-    }
+    matches: {[id:string]:any},
+    excludePath: string
 }
 
 export type SearchElementStore = {

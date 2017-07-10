@@ -14,6 +14,7 @@ export interface SearchBoxProps {
     idField: string;
     itemDisplayCalculator?: (searchItem:any)=>string
     itemSelectionDispatch: (selectedSearchItem:any)=>void
+    excludePath?: string;
 }
 
 interface ConnectedState {
@@ -43,7 +44,7 @@ const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>) => ({
     },
     registerSearchBox: (props: SearchBoxProps) => {
         console.log("SearchBox.registerSearchBox searchBox:" + props);
-        dispatch(registerSearchBox(props.searchBoxId, props.dataPath, props.valueField, props.idField));
+        dispatch(registerSearchBox(props.searchBoxId, props.dataPath, props.valueField, props.idField,props.excludePath));
     },
 });
 

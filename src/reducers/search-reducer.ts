@@ -22,13 +22,13 @@ export const SearchReducer = (state: AggregateDataStore = AggregateDataStoreInit
                 matches: {},
                 valueField: action.valueField,
                 idField:action.idField,
-                excludePath: action.excludePath
+                excludePath: action.excludePath,
+                searchBoxPattern:""
             };
 
             return deepAssign({},state, {misc:{searchElement:singleSearchbox}});
+
         case SearchboxActionTypesConsts.GET_MATHING:
-
-
             var patternMatches;
             var patternRegex = new RegExp(action.pattern,"i");
             if(_.size(action.pattern)>0) {
@@ -43,9 +43,17 @@ export const SearchReducer = (state: AggregateDataStore = AggregateDataStoreInit
             } else {
                 patternMatches = {};
             }
-            var newState = deepAssign({},state);
-            newState.misc.searchElement[action.searchBoxId].matches = patternMatches;
-            return newState;
+
+            var newBaseState = deepAssign({},state);
+            newBaseState.misc.searchElement[action.searchBoxId].matches = patternMatches;
+            newBaseState.misc.searchElement[action.searchBoxId].searchBoxPattern = action.pattern;
+            return newBaseState;
+
+        case SearchboxActionTypesConsts.CLEAR_SEARCHBOX:
+            var newBaseState = deepAssign({},state);
+            newBaseState.misc.searchElement[action.searchBoxId].matches = [];
+            newBaseState.misc.searchElement[action.searchBoxId].searchBoxPattern = "";
+            return newBaseState;
 
         default:
             return state;

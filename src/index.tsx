@@ -14,7 +14,9 @@ import {GurpsCharacterSheet} from "./gurps-character-sheet";
 // process.env.NODE_ENV === 'development';
 // const composeEnhancers = composeWithDevTools({ realtime: true, port: 3000 });
 // let myStore: Redux.Store<AggregateDataStore> = Redux.createStore(AggregateReducer,composeEnhancers(applyMiddleware(thunk)));
-let myStore: Redux.Store<AggregateDataStore> = Redux.createStore(AggregateReducer,applyMiddleware(thunk)); //,
+
+let thunkExtraArgs={extraArgs:{}};
+let myStore: Redux.Store<AggregateDataStore> = Redux.createStore(AggregateReducer,applyMiddleware(thunk.withExtraArgument(thunkExtraArgs))); //,
 
 ReactDOM.render(
     <Provider store={myStore}>

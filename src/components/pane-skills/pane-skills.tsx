@@ -11,12 +11,13 @@ import {SysSkill} from "../../datastore/system-static-store/system-skills-store"
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 import {addSkill} from "../../actions/skill-action-factory";
 import {InputSpinner} from "../common/input-spinner";
+import {CharSkill} from "../../datastore/character-store/skill-store";
 
 export interface SkillsPaneProps {
 }
 
 interface ConnectedState {
-    skillIdsArray: string[]
+    characterSkills: CharSkill[]
 }
 
 interface ConnectedDispatch {
@@ -25,7 +26,7 @@ interface ConnectedDispatch {
 
 const mapStateToPropsSkillsPane = (state: AggregateDataStore, ownProps: SkillsPaneProps): ConnectedState => {
     return {
-        skillIdsArray: _.keys(state.character.skills)
+        characterSkills: _.values(state.character.skills)
     };
 }
 
@@ -51,10 +52,10 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
 
     };
     render() {
-        const {skillIdsArray} = this.props;
-        let skillsList: any = _.map(skillIdsArray, skillId =>
-            <SkillElement key={(skillId+"_"+ Math.random()+"_")} skillId={skillId} />
-        );
+        const {characterSkills} = this.props;
+        let skillsList: any = _.chain(characterSkills).orderBy("order").map((cs:CharSkill) =>
+            <SkillElement key={(cs.skillId+"_"+ Math.random()+"_")} skillId={cs.skillId} />
+        ).value();
 
         return <fieldset className={styles.skillsPane}>
             <legend>Skills</legend>

@@ -6,7 +6,8 @@ export type SingleSearchElementData = {
     pattern?: string,
     possibleObjectList: {[id:string]:any},
     matches: {[id:string]:any},
-    excludePath: string
+    excludePath: string,
+    searchBoxPattern:string;
 }
 
 export type SearchElementStore = {

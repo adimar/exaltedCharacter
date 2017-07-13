@@ -1,4 +1,4 @@
-
+import * as _ from "lodash";
 
 import * as deepAssign from "deep-assign";
 import {AggregateDataStore, AggregateDataStoreInitialState} from "../datastore/aggregate-datastore";
@@ -12,7 +12,8 @@ export const SkillsReducer  = (state: AggregateDataStore = AggregateDataStoreIni
             singleSkill[action.skillId] = {skillCost: action.skillCost};
             return deepAssign({},state,{character:{skills:singleSkill}});
         case SkillActionTypesConsts.ADD_SKILL:
-            singleSkill[action.skillId] = {skillCost: 1};
+
+            singleSkill[action.skillId] = {skillId:action.skillId,skillCost: 1, order:_.size(state.character.skills)};
             return deepAssign({},state,{character:{skills:singleSkill}});
         default:
             return state;

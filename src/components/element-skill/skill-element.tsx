@@ -6,7 +6,7 @@ import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 import {Textfit} from 'react-textfit';
 import * as styles from "./skill-element.css";
-import {setSkillCost} from "../../actions/skill-action-factory";
+import {reorderSkill, setSkillCost} from "../../actions/skill-action-factory";
 import {SystemDataAggregators} from "../../datastore/data-aggregators/system-data-aggregators";
 import {InputSpinner} from "../common/input-spinner";
 
@@ -29,6 +29,7 @@ interface ConnectedState {
 
 interface ConnectedDispatch {
     setSkillCost: (skillCost: number, props: SkillElementProps & ConnectedState) => void;
+    reorderSkill: (newSkillOrder: number, props: SkillElementProps & ConnectedState) => void;
 }
 
 
@@ -55,6 +56,10 @@ const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>): Conne
     setSkillCost: (skillCost: number, props: SkillElementProps & ConnectedState) => {
         console.log("SkillElement.setSkillCost value:" + skillCost + ", attribute:" + props.skillId);
         dispatch(setSkillCost(props.skillId, skillCost));
+    },
+    reorderSkill: (newSkillOrder: number, props: SkillElementProps & ConnectedState)=>{
+        console.log("SkillElement.reorderSkill newSkillOrder:" + newSkillOrder + ", attribute:" + props.skillId);
+        dispatch(reorderSkill(props.skillId, newSkillOrder));
     }
 });
 
@@ -83,11 +88,29 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
         }
     }
 
+    _onSkillDrag = (ev)=> {
+        console.log("Drag");
+    }
+
+    _onSkillDrop = (ev)=> {
+        console.log("Drop");
+        ev.preventDefault();
+    }
+
+    _onSkillDragOver = (ev) =>{
+        console.log("DragOver");
+        ev.preventDefault();
+    }
+
     render() {
         const {name, skillLevel, relativeLevel, cost,attributeName, difficulty} = this.props;
         let customRelativeLevel = (relativeLevel<0?"  "+relativeLevel:"+"+relativeLevel);
         return (
-            <div className={styles.skillElement}>
+            <span className={styles.skillElement} draggable={true}
+                  onDragStart={this._onSkillDrag.bind(this)}
+                  onDrop={this._onSkillDrop.bind(this)}
+                  onDragOver={this._onSkillDragOver.bind(this)}
+            >
                 <Textfit  className={styles.skillName} mode="multi">
                     {name}
                 </Textfit>
@@ -106,7 +129,7 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
                                   clickUpCall={this._onSkillUp.bind(this)}
                                   clickDownCall={this._onSkillDown.bind(this)}/>
                 </label>
-            </div>);
+            </span>);
 
     }
 }

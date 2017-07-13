@@ -10,7 +10,6 @@ import {SearchBox} from "../common/search-box";
 import {SysSkill} from "../../datastore/system-static-store/system-skills-store";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 import {addSkill} from "../../actions/skill-action-factory";
-import {InputSpinner} from "../common/input-spinner";
 import {CharSkill} from "../../datastore/character-store/skill-store";
 
 export interface SkillsPaneProps {

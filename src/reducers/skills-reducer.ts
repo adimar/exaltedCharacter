@@ -15,6 +15,10 @@ export const SkillsReducer  = (state: AggregateDataStore = AggregateDataStoreIni
 
             singleSkill[action.skillId] = {skillId:action.skillId,skillCost: 1, order:_.size(state.character.skills)};
             return deepAssign({},state,{character:{skills:singleSkill}});
+
+        case SkillActionTypesConsts.REORDER_SKILL:
+
+            return state;
         default:
             return state;
     }

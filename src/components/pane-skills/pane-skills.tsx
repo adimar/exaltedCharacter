@@ -16,7 +16,7 @@ export interface SkillsPaneProps {
 }
 
 interface ConnectedState {
-    characterSkills: CharSkill[]
+    characterSkills: {[skillId:string]: CharSkill};
 }
 
 interface ConnectedDispatch {
@@ -24,8 +24,9 @@ interface ConnectedDispatch {
 }
 
 const mapStateToPropsSkillsPane = (state: AggregateDataStore, ownProps: SkillsPaneProps): ConnectedState => {
+
     return {
-        characterSkills: _.values(state.character.skills)
+        characterSkills: state.character.skills
     };
 }
 
@@ -39,6 +40,8 @@ const mapDispatchToPropsSkillsPane = (dispatch: redux.Dispatch<AggregateDataStor
 
 
 class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & SkillsPaneProps, {}> {
+    private _reorderSkillId: string;
+    private _skillList: {[skillId:string]: CharSkill};
 
     _calculateSkillDisplay = (skillItem:SysSkill):string => {
         var attribName = SystemDataStore.attributes[skillItem.attributeId].name;
@@ -50,11 +53,32 @@ class _SkillsPane extends React.Component<ConnectedState & ConnectedDispatch & S
         this.props.addSkill(selectedSearchItem)
 
     };
+
+    _reorderSkills = (ev: React.MouseEvent<HTMLSpanElement>, skillId: string, skillOrder:number )=>{
+        console.log("_reorderSkills "+skillId+"#"+skillOrder);
+
+        if(this._reorderSkillId) {
+            console.log("_reorderSkills:switching "+skillId+"#"+skillOrder+" and "+this._reorderSkillId);
+            this._skillList[skillId].order = this._skillList[this._reorderSkillId].order;
+            this._skillList[this._reorderSkillId].order = skillOrder;
+            this._reorderSkillId=null;
+        } else {
+            this._reorderSkillId = skillId;
+
+        }
+
+        this.forceUpdate();
+    }
+
     render() {
         const {characterSkills} = this.props;
-        let skillsList: any = _.chain(characterSkills).orderBy("order").map((cs:CharSkill) =>
-            <SkillElement key={(cs.skillId+"_"+ Math.random()+"_")} skillId={cs.skillId} />
-        ).value();
+        this._skillList = characterSkills;
+        let skillsList = _.chain(this._skillList).orderBy("order").map((cs:CharSkill) => {
+            var skillItemStyle = styles.skillListItem;
+            return <span className={skillItemStyle} key={(cs.skillId)} onClick={(ev)=>{this._reorderSkills(ev, cs.skillId, cs.order)}}>
+                    <SkillElement  skillId={cs.skillId}/>
+                </span>;
+            }).value();
 
         return <fieldset className={styles.skillsPane}>
             <legend>Skills</legend>

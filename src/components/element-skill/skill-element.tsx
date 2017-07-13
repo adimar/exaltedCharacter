@@ -88,29 +88,11 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
         }
     }
 
-    _onSkillDrag = (ev)=> {
-        console.log("Drag");
-    }
-
-    _onSkillDrop = (ev)=> {
-        console.log("Drop");
-        ev.preventDefault();
-    }
-
-    _onSkillDragOver = (ev) =>{
-        console.log("DragOver");
-        ev.preventDefault();
-    }
-
     render() {
         const {name, skillLevel, relativeLevel, cost,attributeName, difficulty} = this.props;
         let customRelativeLevel = (relativeLevel<0?"  "+relativeLevel:"+"+relativeLevel);
         return (
-            <span className={styles.skillElement} draggable={true}
-                  onDragStart={this._onSkillDrag.bind(this)}
-                  onDrop={this._onSkillDrop.bind(this)}
-                  onDragOver={this._onSkillDragOver.bind(this)}
-            >
+            <span className={styles.skillElement}>
                 <Textfit  className={styles.skillName} mode="multi">
                     {name}
                 </Textfit>

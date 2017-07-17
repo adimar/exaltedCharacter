@@ -87,7 +87,7 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
         const {name, skillLevel, relativeLevel, cost,attributeName, difficulty} = this.props;
         let customRelativeLevel = (relativeLevel<0?"  "+relativeLevel:"+"+relativeLevel);
         return (
-            <span className={styles.skillElement}>
+            <span className={styles.skillElement} draggable={true}>
                 <Textfit  className={styles.skillName} mode="multi">
                     {name}
                 </Textfit>

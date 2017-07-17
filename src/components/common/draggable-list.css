@@ -1,0 +1,27 @@
+:root {
+    --line-color: black;
+    --odd-color: lightGrey;
+    --even-color: white;
+}
+
+
+
+.draggableList {
+
+}
+
+
+.draggableList .draggableItem {
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+}
+
+
+.draggableItem:nth-child(even){
+    background-color: var(--even-color);
+}
+
+.draggableItem:nth-child(odd) {
+    background-color: var(--odd-color);
+}

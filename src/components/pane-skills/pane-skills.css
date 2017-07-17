@@ -1,7 +1,5 @@
 :root {
     --line-color: black;
-    --odd-color: lightGrey;
-    --even-color: white;
 }
 
 .skillsPane {
@@ -13,28 +11,4 @@
     border-style: solid;
 }
 
-.skillsPane .skillsList {
 
-}
-
-
-.skillsPane .skillListItem {
-
-}
-
-
-.skillListItem:nth-child(even){
-    background-color: var(--even-color);
-}
-
-.skillListItem:nth-child(odd) {
-    background-color: var(--odd-color);
-}
-
-.blink_me {
-    animation: blinker 1s linear infinite;
-}
-
-@keyframes blinker {
-    50% { opacity: 0; }
-}

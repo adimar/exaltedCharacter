@@ -4,11 +4,12 @@ import {Action} from "redux";
 export const SkillActionTypesConsts = strEnum([
     "SET_SKILL_COST",
     "ADD_SKILL",
+    "REMOVE_SKILL",
     "REORDER_SKILLS"
 ]);
 
 
-export type SkillAction =  SetSkillCostAction | AddSkillAction | ReorderSkillsAction;
+export type SkillAction =  SetSkillCostAction | AddSkillAction | RemoveSkillAction | ReorderSkillsAction;
 
 export interface SetSkillCostAction extends Action {
     type: "SET_SKILL_COST",
@@ -19,6 +20,11 @@ export interface SetSkillCostAction extends Action {
 
 export interface AddSkillAction extends Action {
     type: "ADD_SKILL",
+    skillId: string
+};
+
+export interface RemoveSkillAction extends Action {
+    type: "REMOVE_SKILL",
     skillId: string
 };
 
@@ -37,6 +43,11 @@ export const setSkillCost  = (skillId:string, skillCost: number): SetSkillCostAc
 
 export const addSkill  = (skillId:string): AddSkillAction => ({
     type: SkillActionTypesConsts.ADD_SKILL,
+    skillId: skillId
+});
+
+export const removeSkill  = (skillId:string): RemoveSkillAction => ({
+    type: SkillActionTypesConsts.REMOVE_SKILL,
     skillId: skillId
 });
 

@@ -6,7 +6,7 @@ import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
 import {Textfit} from 'react-textfit';
 import * as styles from "./skill-element.css";
-import {setSkillCost} from "../../actions/skill-action-factory";
+import {removeSkill, setSkillCost} from "../../actions/skill-action-factory";
 import {SystemDataAggregators} from "../../datastore/data-aggregators/system-data-aggregators";
 import {InputSpinner} from "../common/input-spinner";
 
@@ -29,6 +29,7 @@ interface ConnectedState {
 
 interface ConnectedDispatch {
     setSkillCost: (skillCost: number, props: SkillElementProps & ConnectedState) => void;
+    removeSkill: (props: SkillElementProps & ConnectedState) => void;
 }
 
 
@@ -55,6 +56,10 @@ const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>): Conne
     setSkillCost: (skillCost: number, props: SkillElementProps & ConnectedState) => {
         console.log("SkillElement.setSkillCost value:" + skillCost + ", attribute:" + props.skillId);
         dispatch(setSkillCost(props.skillId, skillCost));
+    },
+    removeSkill: (props: SkillElementProps & ConnectedState) => {
+        console.log("SkillElement.removeSkill:" + props.skillId);
+        dispatch(removeSkill(props.skillId));
     }
 });
 
@@ -83,11 +88,16 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
         }
     }
 
+    _onRemoveSkill = ()=>{
+        this.props.removeSkill(this.props);
+    }
+
     render() {
         const {name, skillLevel, relativeLevel, cost,attributeName, difficulty} = this.props;
         let customRelativeLevel = (relativeLevel<0?"  "+relativeLevel:"+"+relativeLevel);
         return (
             <span className={styles.skillElement} draggable={true}>
+                <label className={styles.deleteSkill} onClick={this._onRemoveSkill.bind(this)}>&#9746;</label>
                 <Textfit  className={styles.skillName} mode="multi">
                     {name}
                 </Textfit>
@@ -106,6 +116,7 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
                                   clickUpCall={this._onSkillUp.bind(this)}
                                   clickDownCall={this._onSkillDown.bind(this)}/>
                 </label>
+
             </span>);
 
     }

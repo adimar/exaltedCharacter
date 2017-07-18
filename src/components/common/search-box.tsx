@@ -61,6 +61,7 @@ const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>) => ({
 class _SearchBox extends React.Component<ConnectedState & ConnectedDispatch & SearchBoxProps, {}> {
     private _scrollBarIndex: number = 0;
     private _dropDownVisible: boolean =  false;
+    private _timeoutID;
     constructor(props: SearchBoxProps & ConnectedState & ConnectedDispatch) {
         super(props);
         props.registerSearchBox(props);
@@ -84,13 +85,17 @@ class _SearchBox extends React.Component<ConnectedState & ConnectedDispatch & Se
         this.forceUpdate();
     }
 
-    _onMouseEnterLeave = (event: React.MouseEvent<HTMLDivElement>) => {
-        if (event.type === "mouseleave") {
-          this._dropDownVisible = false;
-        } else if (event.type === "mouseenter" ) {
-            this._dropDownVisible = true;
-        }
+    _onFocus = () => {
+        this._dropDownVisible = true;
         this.forceUpdate();
+    }
+
+    _onBlur = () => {
+            this._timeoutID = setTimeout(() => {
+                this._dropDownVisible = false;
+                this.forceUpdate();
+            }, 200);
+
     }
 
     _onSelectSearchItem = (event: React.MouseEvent<HTMLDivElement>, selectedSearchItem: any)=> {
@@ -119,9 +124,8 @@ class _SearchBox extends React.Component<ConnectedState & ConnectedDispatch & Se
         }
 
 
-        return <div className={styles.searchBox} onMouseLeave={this._onMouseEnterLeave.bind(this)}
-                    onMouseEnter={this._onMouseEnterLeave.bind(this)}>
-            <input className={styles.searchBoxText} type="text" onChange={this._onSearchboxChanged.bind(this)} value={searchBoxPattern}/>
+        return <div className={styles.searchBox} onFocus={this._onFocus.bind(this)} onBlur={this._onBlur.bind(this)}>
+            <input className={styles.searchBoxText} type="text" onChange={this._onSearchboxChanged.bind(this)} value={searchBoxPattern}  />
             {this._dropDownVisible && <div className={styles.searchDropDown} onWheel={this._onWheelSearchBox.bind(this)} >{matchingItems}</div>}
         </div>;
     }

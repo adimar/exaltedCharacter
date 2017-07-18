@@ -14,6 +14,10 @@ export const SkillsReducer  = (state: AggregateDataStore = AggregateDataStoreIni
         case SkillActionTypesConsts.ADD_SKILL:
             singleSkill[action.skillId] = {skillId:action.skillId,skillCost: 1, order:_.size(state.character.skills)};
             return deepAssign({},state,{character:{skills:singleSkill}});
+        case SkillActionTypesConsts.REMOVE_SKILL:
+            var newState = _.cloneDeep(state);
+            delete newState.character.skills[action.skillId];
+            return newState;
         case SkillActionTypesConsts.REORDER_SKILLS:
             let skillOrderDictionary = _.reduce(action.newSkillsOrder,(dict,skillOrder,skillId)=>{
                 dict[skillId]={order:skillOrder};

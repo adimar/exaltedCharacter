@@ -21,7 +21,7 @@ export type SysSkill = {
     defaults: SysSkillDefault[]
     specializations: string[]
     optionalSpecializations: string[]
-} 
+}
 
 type SkillListStore = { [skillId: string]: SysSkill };
 

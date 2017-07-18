@@ -22,8 +22,8 @@ interface ConnectedState {
     attributeName: string,
     difficulty: string,
     cost: number;
-    relativeLevel: number;
-    skillLevel: number;
+    relativeLevel: string;
+    skillLevel: string | number;
 }
 
 
@@ -40,14 +40,24 @@ const mapStateToProps = (state: AggregateDataStore, ownProps: SkillElementProps)
     let aggregatedSkill = SystemDataAggregators.skills(state,skillId);
     let characterSkill = state.character.skills[skillId];
 
+    let relativeLevel;
+    if(aggregatedSkill.relativeLevel ===-999) {
+        relativeLevel="";
+    } else if(aggregatedSkill.relativeLevel<0) {
+        relativeLevel = "  "+aggregatedSkill.relativeLevel;
+    }
+    else {
+        relativeLevel = "+"+aggregatedSkill.relativeLevel;
+    }
+
     return {
         name: systemSkill.name,
-        relativeLevel: aggregatedSkill.relativeLevel,
+        relativeLevel: relativeLevel,
         cost: characterSkill.skillCost,
         attributeId: systemSkill.attributeId,
         attributeName: SystemDataStore.attributes[systemSkill.attributeId].name,
         difficulty: systemSkill.difficulty,
-        skillLevel: aggregatedSkill.skillLevel
+        skillLevel: aggregatedSkill.skillLevel || "NA"
     };
 }
 
@@ -94,7 +104,7 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
 
     render() {
         const {name, skillLevel, relativeLevel, cost,attributeName, difficulty} = this.props;
-        let customRelativeLevel = (relativeLevel<0?"  "+relativeLevel:"+"+relativeLevel);
+
         return (
             <span className={styles.skillElement} draggable={true}>
                 <label className={styles.deleteSkill} onClick={this._onRemoveSkill.bind(this)}>&#9746;</label>
@@ -106,7 +116,7 @@ class _SkillElement extends React.Component<ConnectedState & ConnectedDispatch &
                     {attributeName}/{difficulty}
 
                 </label>
-                <label className={styles.relativeLevelBox}>{customRelativeLevel}</label>
+                <label className={styles.relativeLevelBox}>{relativeLevel}</label>
                 <label className={styles.skillLevel}>
                     {skillLevel}
                 </label>

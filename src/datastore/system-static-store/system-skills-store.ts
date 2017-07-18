@@ -11,6 +11,7 @@ export type SysSkillDefault = {
     name: string;
     modifier: number;
 }
+
 export type SysSkill = {
     skillId: string;
     name: string;
@@ -18,9 +19,10 @@ export type SysSkill = {
     difficulty: string;
     reference: string;
     categories: string[];
-    defaults: SysSkillDefault[]
-    specializations: string[]
-    optionalSpecializations: string[]
+    skillDefaults: SysSkillDefault[];
+    attributeDefault: SysSkillDefault;
+    specializations: string[];
+    optionalSpecializations: string[];
 }
 
 type SkillListStore = { [skillId: string]: SysSkill };
@@ -34,7 +36,7 @@ const SkillRelativeStart = {
     "VH": -3
 }
 
-const SkillDifficultyCostProgression = [1,2,4,8,12,16,20,24,28];
+const SkillDifficultyCostProgression = [0,1,2,4,8,12,16,20,24,28];
 
 
 type SkillsStore = {

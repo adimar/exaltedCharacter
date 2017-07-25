@@ -8,7 +8,7 @@ import {AggregateReducer} from "./reducers/aggregate-reducer";
 import {AggregateDataStore} from "./datastore/aggregate-datastore";
 
 import {applyMiddleware} from "redux";
-import {GurpsCharacterSheet} from "./gurps-character-sheet";
+import {ExaltedCharacterSheet} from "./exalted-character-sheet";
 
 //
 // process.env.NODE_ENV === 'development';
@@ -20,6 +20,6 @@ let myStore: Redux.Store<AggregateDataStore> = Redux.createStore(AggregateReduce
 
 ReactDOM.render(
     <Provider store={myStore}>
-        <GurpsCharacterSheet/>
+        <ExaltedCharacterSheet/>
     </Provider>
-    , document.getElementById("gurpsCharacterGeneratorBodyDiv"));
+    , document.getElementById("exaltedCharacterGeneratorBodyDiv"));

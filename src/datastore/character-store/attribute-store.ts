@@ -1,20 +1,19 @@
 import {SystemDataStore} from "../system-static-store/system-data-store";
 export type Attribute = {
+    id:string;
     cost: number;
 }
 
 export type AttributesStore = {[attributeId:string]: Attribute};
 
 export const CharacterAttributeStoreInitialState : AttributesStore = {
-    st: {cost:0},
-    dx: {cost:0},
-    iq: {cost:0},
-    ht: {cost:0},
-    hp: {cost:0},
-    will: {cost:0},
-    per: {cost:0},
-    fp: {cost:0},
-    strike: {cost:0},
-    speed: {cost:0},
-    move: {cost:0},
+    "strength":{"id":"strength","cost":0},
+    "dexterity":{"id":"dexterity","cost":0},
+    "stamina":{"id":"stamina","cost":0},
+    "charisma":{"id":"charisma","cost":0},
+    "manipulation":{"id":"manipulation","cost":0},
+    "appearance":{"id":"appearance","cost":0},
+    "perception":{"id":"perception","cost":0},
+    "intelligence":{"id":"intelligence","cost":0},
+    "wits":{"id":"wits","cost":0},
 }

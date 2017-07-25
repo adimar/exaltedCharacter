@@ -1,0 +1,39 @@
+:root {
+    --active-color: yellow;
+    --inactive-color: white;
+    --line-color: black;
+}
+
+
+.dotSliderElement {
+    padding-bottom: 1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: inherit;
+    height: 20px;
+    width: 270px;
+}
+
+
+
+.dotSliderElement .dot {
+    width: 7px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 3px;
+    border-color: gold;
+    border-style: solid;
+    border-width: 1px;
+
+}
+
+.dotEmpty {
+
+    background-color: inherit;
+
+}
+
+.dotFull {
+    background-color: gold;
+}

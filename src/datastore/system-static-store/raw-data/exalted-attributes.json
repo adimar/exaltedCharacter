@@ -1,0 +1,11 @@
+{
+  "strength":{"id":"strength","name":"Strength","group":"physical","base":1},
+  "dexterity":{"id":"dexterity","name":"Dexterity","group":"physical","base":1},
+  "stamina":{"id":"stamina","name":"Stamina","group":"physical","base":1},
+  "charisma":{"id":"charisma","name":"Charisma","group":"social","base":1},
+  "manipulation":{"id":"manipulation","name":"Manipulation","group":"social","base":1},
+  "appearance":{"id":"appearance","name":"Appearance","group":"social","base":1},
+  "perception":{"id":"perception","name":"Perception","group":"mental","base":1},
+  "intelligence":{"id":"intelligence","name":"Intelligence","group":"mental","base":1},
+  "wits":{"id":"wits","name":"Wits","group":"mental","base":1}
+}

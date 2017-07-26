@@ -1,6 +1,7 @@
 .git/
 .idea/
 dist/
+build/
 node_modules/
 gurpsCharGen.iml
 src/*.d.ts

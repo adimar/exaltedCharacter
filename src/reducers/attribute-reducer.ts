@@ -7,7 +7,11 @@ export const AttributeReducer = (state: AggregateDataStore = AggregateDataStoreI
     console.log("AttributeReducer."+action.type+"("+JSON.stringify(action)+")");
     let singleAttribute : any =  {};
     switch (action.type) {
-
+        case AttributeActionTypesConsts.SET_ATTRIBUTE:
+            let currentValue = state.character.attributes[action.attributeId].value;
+            let newValue = (action.value===currentValue && currentValue>1?currentValue-1:action.value);
+            singleAttribute[action.attributeId] = {value:newValue};
+            return deepAssign({},state, {character:{attributes:singleAttribute}});
         default:
             return state;
     }

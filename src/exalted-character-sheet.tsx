@@ -2,7 +2,8 @@ import * as React from "react";
 import * as redux from "redux";
 import { connect } from "react-redux";
 import {AggregateDataStore} from "./datastore/aggregate-datastore";
-import {DotSliderElement} from "./components/element-dot-slider/dot-slider-element";
+import {AttributesPane} from "./components/pane-attributes/attributes-pane";
+
 
 export interface OwnProps {
 
@@ -30,7 +31,7 @@ class _ExaltedCharacterSheet extends React.Component<OwnProps & ConnectedState &
     render () {
 
         return <div>
-            <DotSliderElement visibleDots="3"/>
+            <AttributesPane/>
             </div>
 
 

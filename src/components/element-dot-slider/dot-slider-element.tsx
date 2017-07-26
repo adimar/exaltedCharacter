@@ -4,14 +4,23 @@ import {connect} from "react-redux";
 import * as _ from "lodash";
 import * as styles from "./dot-slider-element.css";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
+import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
+import {CharacterDataStore} from "../../datastore/character-store/character-store";
 
 
 export interface OwnProps {
-    visibleDots : string;
+
+    dataPath: string;
+    itemId: string;
+    titleProperty: string;
+    selectDotFunction:(itemId:string, value:number)=>void
+    visibleDots : number;
+    maxDots? : number;
 }
 
 interface ConnectedState {
-
+    title: string;
+    value: number;
 }
 
 interface ConnectedDispatch {
@@ -20,8 +29,15 @@ interface ConnectedDispatch {
 
 
 const mapStateToProps = (state:AggregateDataStore, ownProps: OwnProps): ConnectedState => {
+    let characterDataStoreNode = _.get(state.character,ownProps.dataPath)[ownProps.itemId]
+    let systemDataStoreNode = _.get(SystemDataStore,ownProps.dataPath)[ownProps.itemId];
+    let title:string  = systemDataStoreNode[ownProps.titleProperty];
+    let value:number =  characterDataStoreNode.value;
 
-    return {};
+    return {
+        title: title,
+        value: value
+    };
 }
 
 
@@ -31,29 +47,37 @@ const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>): Conne
 
 
 class _dotSliderElement extends React.Component<OwnProps & ConnectedState & ConnectedDispatch, {}> {
-    private _value:number=3;
 
 
     _selectDot = (ev,i)=>{
-        console.log("_selectDot:"+i);
-        if(i===this._value && i>0) {
-            i--;
-        }
-        this._value=i;
-        this.forceUpdate();
+        console.log("item:"+this.props.itemId+", selectDot:"+i);
+        this.props.selectDotFunction(this.props.itemId, i);
     }
-    render() {
-        const {visibleDots} = this.props;
-        let visibleDotCount = Number.parseInt(visibleDots);
-        let dotArray = [];
-        for(let i=0;i<visibleDotCount;i++) {
 
-            let dot = <span key={"dot"+i} className={styles.dot +" "+ (i<this._value?styles.dotFull:styles.dotEmpty)}
-                            onClick={(e)=>{this._selectDot(e, i+1)}}/>
+    render() {
+        const {visibleDots,maxDots,title,value} = this.props;
+
+        let dotArray = [];
+        for(let i=0;i<visibleDots;i++) {
+            let classNameValue = styles.dot +" ";
+            let onClickValue;
+            if(i<value) {
+                classNameValue+=styles.dotFull;
+                onClickValue  = (e)=>{this._selectDot(e, i+1)};
+            } else if(i< (maxDots||visibleDots)) {
+                classNameValue+=styles.dotEmpty;
+                onClickValue  = (e)=>{this._selectDot(e, i+1)};
+            } else {
+                classNameValue+=styles.dotInactive;
+                onClickValue=()=>{};
+            }
+
+            let dot = <span key={"dot"+i} className={classNameValue} onClick={onClickValue}/>
             dotArray.push(dot);
         }
         return <span className={styles.dotSliderElement}>
-            {dotArray}
+            <label className={styles.labelSpan}>{title}</label>
+            <span className={styles.dotSpan}>{dotArray}</span>
         </span>
     }
 }

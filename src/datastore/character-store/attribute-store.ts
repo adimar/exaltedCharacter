@@ -1,10 +1,10 @@
 import {SystemDataStore} from "../system-static-store/system-data-store";
-export type Attribute = {
+export type CharAttribute = {
     id:string;
     value: number;
 }
 
-export type AttributesStore = {[attributeId:string]: Attribute};
+export type AttributesStore = {[attributeId:string]: CharAttribute};
 
 export const CharacterAttributeStoreInitialState : AttributesStore = {
     "strength":{"id":"strength","value":1},

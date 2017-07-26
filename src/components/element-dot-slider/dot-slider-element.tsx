@@ -5,15 +5,14 @@ import * as _ from "lodash";
 import * as styles from "./dot-slider-element.css";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
-import {CharacterDataStore} from "../../datastore/character-store/character-store";
-
+import {Action} from "redux";
 
 export interface OwnProps {
 
     dataPath: string;
     itemId: string;
     titleProperty: string;
-    selectDotFunction:(itemId:string, value:number)=>void
+    setItemAction:(itemId:string, value:number)=>Action
     visibleDots : number;
     maxDots? : number;
 }
@@ -24,7 +23,7 @@ interface ConnectedState {
 }
 
 interface ConnectedDispatch {
-
+    callDispatchFunction: (value: number, props: OwnProps & ConnectedState) => void;
 }
 
 
@@ -42,7 +41,9 @@ const mapStateToProps = (state:AggregateDataStore, ownProps: OwnProps): Connecte
 
 
 const mapDispatchToProps = (dispatch: redux.Dispatch<AggregateDataStore>): ConnectedDispatch => ({
-
+    callDispatchFunction: (value: number, props: OwnProps & ConnectedState) => {
+        dispatch(props.setItemAction(props.itemId, value));
+    }
 });
 
 
@@ -51,7 +52,7 @@ class _dotSliderElement extends React.Component<OwnProps & ConnectedState & Conn
 
     _selectDot = (ev,i)=>{
         console.log("item:"+this.props.itemId+", selectDot:"+i);
-        this.props.selectDotFunction(this.props.itemId, i);
+        this.props.callDispatchFunction(i, this.props);
     }
 
     render() {

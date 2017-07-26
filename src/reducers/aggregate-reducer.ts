@@ -6,10 +6,6 @@ import {AttributeReducer} from "./attribute-reducer";
 import {AggregateDataStore, AggregateDataStoreInitialState} from "../datastore/aggregate-datastore";
 import * as _ from "lodash";
 
-import {SearchReducer} from "./search-reducer";
-
-
-
 export  const AggregateReducer = <A extends Action>(state: AggregateDataStore = AggregateDataStoreInitialState, action: A): AggregateDataStore => {
     console.log("AggregateReducers."+action.type+"("+JSON.stringify(action)+")");
     _.forEach(ReducerRegistry.reducers,reducer=>{
@@ -35,5 +31,4 @@ class _ReducerRegistry {
 export const ReducerRegistry = new _ReducerRegistry();
 ReducerRegistry.register(AttributeReducer);
 
-ReducerRegistry.register(SearchReducer);
 

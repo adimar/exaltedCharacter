@@ -12,11 +12,10 @@ export type AttributeGroupConstsTypes = keyof typeof AttributeGroupConsts;
 type AttributesStore = { [attributeId: string]: SystemAttribute };
 
 
-type SystemAttribute = {
+export type SystemAttribute = {
     id: string;
     name: string;
     group: AttributeGroupConstsTypes;
-    base:number;
 }
 
 export const SystemAttributeStoreInitialState: AttributesStore = ExaltedAttributes;

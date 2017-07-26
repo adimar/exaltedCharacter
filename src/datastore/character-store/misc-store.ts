@@ -1,21 +1,23 @@
 
 
-export type SingleSearchElementData = {
-    idField:string,
-    valueField:string,
-    pattern?: string,
-    possibleObjectList: {[id:string]:any},
-    matches: {[id:string]:any},
-    excludePath: string,
-    searchBoxPattern:string;
+export type MiscStoreEntry = {
+    id: string,
+    name: string,
+    value: number
 }
 
-export type SearchElementStore = {
-    [searchBoxId:string]: SingleSearchElementData
-}
+export type MiscStore = {
+        essence: number,
+        willpower: number,
+        personal: number,
+        peripheral: number,
+        committed: number
+    };
 
-export type MiscStore = {searchElement: SearchElementStore};
-
-export const MiscStoreInitialState = {
-    searchElement: {}
+export const MiscStoreInitialState: MiscStore = {
+    essence: 1,
+    willpower: 5,
+    personal: -1,
+    peripheral: -1,
+    committed: -1
 }

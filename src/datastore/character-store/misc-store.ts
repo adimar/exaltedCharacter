@@ -1,11 +1,4 @@
 
-
-export type MiscStoreEntry = {
-    id: string,
-    name: string,
-    value: number
-}
-
 export type MiscStore = {
         essence: number,
         willpower: number,

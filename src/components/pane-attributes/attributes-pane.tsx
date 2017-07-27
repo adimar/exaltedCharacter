@@ -6,15 +6,8 @@ import * as styles from "./attributes-pane.css";
 import {AggregateDataStore} from "../../datastore/aggregate-datastore";
 import {DotSliderElement} from "../element-dot-slider/dot-slider-element";
 import {setAttribute} from "../../actions/attribute-action-factory";
-import {CharAttribute} from "../../datastore/character-store/attribute-store";
-import {SystemDataStore} from "../../datastore/system-static-store/system-data-store";
-import {SystemAttribute} from "../../datastore/system-static-store/system-attributes-store";
+import {CharAttribute, GroupOrderData} from "../../datastore/character-store/attribute-store";
 
-export type GroupOrderData = {
-    group:string;
-    sum:number;
-    outOf:number
-}
 
 export interface OwnProps {
 
@@ -32,27 +25,9 @@ interface ConnectedDispatch {
 
 
 
-
 const mapStateToProps = (state: AggregateDataStore, ownProps: OwnProps): ConnectedState => {
-    let attributesBreakdown:{[group:string]:GroupOrderData} = _.reduce(state.character.attributes,(agg,charAttr:CharAttribute)=>{
-            let systemAttr:SystemAttribute = SystemDataStore.attributes[charAttr.id];
 
-            if(agg[systemAttr.group]) {
-                agg[systemAttr.group].sum=agg[systemAttr.group].sum+(charAttr.value-1);
-            } else {
-                agg[systemAttr.group]={
-                    group:systemAttr.group,
-                    sum:(charAttr.value-1),
-                    outOf:-1};
-            }
-            return agg;
-        },{});
-
-    var sortedAttrBrkDwn = _.orderBy(attributesBreakdown,["sum"],["desc"]);
-    attributesBreakdown[sortedAttrBrkDwn[0].group].outOf=8;
-    attributesBreakdown[sortedAttrBrkDwn[1].group].outOf=6;
-    attributesBreakdown[sortedAttrBrkDwn[2].group].outOf=4;
-
+    let attributesBreakdown = state.character.attributesMisc.attributesBreakdown;
     let maxAttributes = state.character.misc.essence>5?state.character.misc.essence:5;
 
     return {
@@ -69,9 +44,9 @@ class _attributesPane extends React.Component<OwnProps & ConnectedState & Connec
     render() {
         const {maxAttributes,attributesBreakdown} = this.props;
 		let attrBreakdownString:string =
-            attributesBreakdown.physical.sum+"("+attributesBreakdown.physical.outOf+") / "+
-            attributesBreakdown.social.sum+"("+attributesBreakdown.social.outOf+") / "+
-            attributesBreakdown.mental.sum+"("+attributesBreakdown.mental.outOf+")";
+            attributesBreakdown.physical.sum+"("+attributesBreakdown.physical.rank+") / "+
+            attributesBreakdown.social.sum+"("+attributesBreakdown.social.rank+") / "+
+            attributesBreakdown.mental.sum+"("+attributesBreakdown.mental.rank+")";
 
         return <span >
 					<fieldset className={styles.attributesFieldSet}>

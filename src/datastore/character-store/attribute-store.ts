@@ -1,4 +1,27 @@
-import {SystemDataStore} from "../system-static-store/system-data-store";
+
+import {AttributeGroupRanks, AttributeGroupRankTypes} from "../system-static-store/system-attributes-store";
+
+
+
+export type GroupOrderData = {
+    group:string;
+    sum:number;
+    rank: AttributeGroupRankTypes
+}
+
+export type CharAttributeMisc = {
+    attributesBreakdown: {[groupName:string]:GroupOrderData};
+}
+
+export const CharAttributeMiscInitialState: CharAttributeMisc = {
+    attributesBreakdown: {
+        physical:{group:"physical",sum:0, rank: AttributeGroupRanks.primary},
+        social:{group:"social",sum:0, rank: AttributeGroupRanks.secondary},
+        mental:{group:"mental",sum:0, rank: AttributeGroupRanks.tertiary}
+    }
+}
+
+//----------------------------------------------------
 export type CharAttribute = {
     id:string;
     value: number;

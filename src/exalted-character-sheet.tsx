@@ -3,6 +3,7 @@ import * as redux from "redux";
 import { connect } from "react-redux";
 import {AggregateDataStore} from "./datastore/aggregate-datastore";
 import {AttributesPane} from "./components/pane-attributes/attributes-pane";
+import {BonusPointsPane} from "./components/pane-bonus-points/bonus-points-pane";
 
 
 export interface OwnProps {
@@ -32,6 +33,7 @@ class _ExaltedCharacterSheet extends React.Component<OwnProps & ConnectedState &
 
         return <div>
             <AttributesPane/>
+            <BonusPointsPane/>
             </div>
 
 

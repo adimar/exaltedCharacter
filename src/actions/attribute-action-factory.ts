@@ -9,7 +9,7 @@ export const AttributeActionTypesConsts = strEnum([
 //export type AttributeActionTypes = keyof typeof AttributeActionTypesConsts;
 
 
-export type AttributeAction =  SetAttributeAction  ;
+export type AttributeActions =  SetAttributeAction  ;
 
 
 export interface SetAttributeAction extends Action   {

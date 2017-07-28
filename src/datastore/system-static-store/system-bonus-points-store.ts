@@ -1,14 +1,16 @@
-export const SystemBonusPointsStoreInitialState: {[key:string]:number|object} = {
-    attributes: {primary:4,secondary:4,tertiary:3},
-    casteAbility: 1,
-    favoredAbility: 1,
-    nonFavoredAbility: 2,
+
+export const SystemAttributesBonusPoints = {primary:4,secondary:4,tertiary:3};
+
+export const SystemBonusPointsStoreInitialState = {
+    attributes:SystemAttributesBonusPoints,
+    favoredSkill: 1,
+    regularSkill: 2,
     specialty: 1,
     merits: 1,
-    casteCharm: 4,
     favoredCharm: 4,
-    nonFavoredCharm: 5,
-    favoredOccultSpell: 4,
-    nonFavoredOccultSpell: 5
+    regularCharm: 5,
+    favoredSpell: 4,
+    regularSpell: 5
+
 };
 

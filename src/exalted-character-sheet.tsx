@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import {AggregateDataStore} from "./datastore/aggregate-datastore";
 import {AttributesPane} from "./components/pane-attributes/attributes-pane";
 import {BonusPointsPane} from "./components/pane-bonus-points/bonus-points-pane";
+import {SkillsPane} from "./components/pane-skills/skills-pane";
+import {CharmSelection} from "./components/element-charm-selection/charm-selection-element";
 
 
 export interface OwnProps {
@@ -33,12 +35,10 @@ class _ExaltedCharacterSheet extends React.Component<OwnProps & ConnectedState &
 
         return <div>
             <AttributesPane/>
+            <SkillsPane/>
             <BonusPointsPane/>
+            <CharmSelection skillId="bureaucracy"/>
             </div>
-
-
-
-
     }
 }
 

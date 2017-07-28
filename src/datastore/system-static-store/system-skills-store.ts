@@ -7,7 +7,6 @@ export const SkillIdConsts = strEnum(["archery","athletics","awareness","brawl",
     "performance","presence","resistance","ride","sail","socialize","stealth","survival","thrown","war"]);
 export type SkillIdConstTypes = keyof typeof SkillIdConsts;
 
-
 type SkillsStore = { [sillId: string]: SystemSkill };
 
 
@@ -15,6 +14,11 @@ type SystemSkill = {
     id: string;
     name: string;
     base:number;
+}
+
+export const SystemSkillsMiscInitialState = {
+    maxNonBonusRating: 3,
+    baseSkills: 28
 }
 
 export const SystemSkillsStoreInitialState: SkillsStore = ExaltedSkills;

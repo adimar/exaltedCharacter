@@ -1,36 +1,43 @@
+
+
+import {strEnum} from "../../helpers/str-enum";
+export const SkillAptitude = strEnum(["supernal","favored","regular"]);
+export type SkillAptitudeTypes = keyof typeof SkillAptitude;
+
 export type CharSkill = {
     id:string;
-    cost: number;
+    value: number;
+    favored: string;
 }
 
 
 export type SkillsStore = {[skillId:string]: CharSkill};
 
 export const CharacterSkillsStoreInitialState = {
-    "archery":{"id":"archery","cost":0},
-    "athletics":{"id":"athletics","cost":0},
-    "awareness":{"id":"awareness","cost":0},
-    "brawl":{"id":"brawl","cost":0},
-    "bureaucracy":{"id":"bureaucracy","cost":0},
-    "craft":{"id":"craft","cost":0},
-    "dodge":{"id":"dodge","cost":0},
-    "integrity":{"id":"integrity","cost":0},
-    "investigation":{"id":"investigation","cost":0},
-    "larceny":{"id":"larceny","cost":0},
-    "linguistics":{"id":"linguistics","cost":0},
-    "lore":{"id":"lore","cost":0},
-    "martial arts":{"id":"martial arts","cost":0},
-    "medicine":{"id":"medicine","cost":0},
-    "melee":{"id":"melee","cost":0},
-    "occult":{"id":"occult","cost":0},
-    "performance":{"id":"performance","cost":0},
-    "presence":{"id":"presence","cost":0},
-    "resistance":{"id":"resistance","cost":0},
-    "ride":{"id":"ride","cost":0},
-    "sail":{"id":"sail","cost":0},
-    "socialize":{"id":"socialize","cost":0},
-    "stealth":{"id":"stealth","cost":0},
-    "survival":{"id":"survival","cost":0},
-    "thrown":{"id":"thrown","cost":0},
-    "war":{"id":"war","cost":0}
+    "archery":{"id":"archery","value":0, "favored":SkillAptitude.regular},
+    "athletics":{"id":"athletics","value":0, "favored":SkillAptitude.regular},
+    "awareness":{"id":"awareness","value":0, "favored":SkillAptitude.regular},
+    "brawl":{"id":"brawl","value":0, "favored":SkillAptitude.regular},
+    "bureaucracy":{"id":"bureaucracy","value":0, "favored":SkillAptitude.regular},
+    "craft":{"id":"craft","value":0, "favored":SkillAptitude.regular},
+    "dodge":{"id":"dodge","value":0, "favored":SkillAptitude.regular},
+    "integrity":{"id":"integrity","value":0, "favored":SkillAptitude.regular},
+    "investigation":{"id":"investigation","value":0, "favored":SkillAptitude.regular},
+    "larceny":{"id":"larceny","value":0, "favored":SkillAptitude.regular},
+    "linguistics":{"id":"linguistics","value":0, "favored":SkillAptitude.regular},
+    "lore":{"id":"lore","value":0, "favored":SkillAptitude.regular},
+    "martial arts":{"id":"martial arts","value":0, "favored":SkillAptitude.regular},
+    "medicine":{"id":"medicine","value":0, "favored":SkillAptitude.regular},
+    "melee":{"id":"melee","value":0, "favored":SkillAptitude.regular},
+    "occult":{"id":"occult","value":0, "favored":SkillAptitude.regular},
+    "performance":{"id":"performance","value":0, "favored":SkillAptitude.regular},
+    "presence":{"id":"presence","value":0, "favored":SkillAptitude.regular},
+    "resistance":{"id":"resistance","value":0, "favored":SkillAptitude.regular},
+    "ride":{"id":"ride","value":0, "favored":SkillAptitude.regular},
+    "sail":{"id":"sail","value":0, "favored":SkillAptitude.regular},
+    "socialize":{"id":"socialize","value":0, "favored":SkillAptitude.regular},
+    "stealth":{"id":"stealth","value":0, "favored":SkillAptitude.regular},
+    "survival":{"id":"survival","value":0, "favored":SkillAptitude.regular},
+    "thrown":{"id":"thrown","value":0, "favored":SkillAptitude.regular},
+    "war":{"id":"war","value":0, "favored":SkillAptitude.regular}
 }

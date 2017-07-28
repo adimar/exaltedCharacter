@@ -7,8 +7,8 @@ export type SystemCharm = {
     id: string;
     name: string;
     cost: string;
-    ability: string;
-    abilityMin: number;
+    skill: string;
+    skillMin: number;
     essenceMin: number;
     type: string;
     keywords: string[];
@@ -19,4 +19,4 @@ export type SystemCharm = {
 
 type CharmStore = { [charmId: string]: SystemCharm };
 
-export const SystemSkillsStoreInitialState: CharmStore = ExaltedCharms;
+export const SystemCharmsStoreInitialState: CharmStore = ExaltedCharms;

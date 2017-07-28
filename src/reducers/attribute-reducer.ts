@@ -1,5 +1,5 @@
 import {AggregateDataStore, AggregateDataStoreInitialState} from "../datastore/aggregate-datastore";
-import {AttributeAction, AttributeActionTypesConsts} from "../actions/attribute-action-factory";
+import {AttributeActions, AttributeActionTypesConsts} from "../actions/attribute-action-factory";
 import * as deepAssign from "deep-assign";
 import {SystemDataStore} from "../datastore/system-static-store/system-data-store";
 import {SystemAttribute,AttributeGroupRanks} from "../datastore/system-static-store/system-attributes-store";
@@ -29,7 +29,7 @@ const  CalculateAttributesBreakdown = function (state: AggregateDataStore) {
     return attributesBreakdown;
 };
 
-export const AttributeReducer = (state: AggregateDataStore = AggregateDataStoreInitialState, action: AttributeAction): AggregateDataStore => {
+export const AttributeReducer = (state: AggregateDataStore = AggregateDataStoreInitialState, action: AttributeActions): AggregateDataStore => {
     console.log("AttributeReducer."+action.type+"("+JSON.stringify(action)+")");
     let singleAttribute : any =  {};
     switch (action.type) {

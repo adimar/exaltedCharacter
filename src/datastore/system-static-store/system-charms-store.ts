@@ -17,6 +17,6 @@ export type SystemCharm = {
 }
 
 
-type CharmStore = { [charmId: string]: SystemCharm };
+export type SystemCharmStore = { [charmId: string]: SystemCharm };
 
-export const SystemCharmsStoreInitialState: CharmStore = ExaltedCharms;
+export const SystemCharmsStoreInitialState: SystemCharmStore = ExaltedCharms;

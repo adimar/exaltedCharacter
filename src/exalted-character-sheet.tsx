@@ -37,7 +37,7 @@ class _ExaltedCharacterSheet extends React.Component<OwnProps & ConnectedState &
             <AttributesPane/>
             <SkillsPane/>
             <BonusPointsPane/>
-            <CharmSelection skillId="bureaucracy"/>
+            <CharmSelection skillId="melee"/>
             </div>
     }
 }
